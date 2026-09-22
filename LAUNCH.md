@@ -1,0 +1,7 @@
+# Launch post
+
+Your feed is quietly filling up with AI slop. The listicles that could be about anything, the fake-quotey motivation posts, the hashtag walls with no person behind them. You scroll past on instinct, but the instinct is tired and the slop is volume produced. So I built a detector that does the judging for you: a Chrome extension that runs TypeSafe Jev over every card in your feed with one batched question, does this look like AI slop?
+
+It is honest about being unsure. High confidence gets a red LIKELY AI SLOP badge with the score, right on the card. Medium gets a quiet amber CHECK THIS outline so you can make the call. Low confidence and the post stays completely untouched. The extension never deletes anything, it annotates and gets out of the way, and it never says "is AI-generated", only "likely". In a live run on X, searching #mindset and #success, it flagged every post from two automation accounts at 86 to 88 percent confidence while leaving genuinely human posts alone. A three card batch costs one API call, about a quarter of a second, and roughly a thousand input tokens.
+
+Setup takes a minute: load the folder unpacked at chrome://extensions, paste your TypeSafe API key, scroll your feed. Everything is plain JavaScript, no build step, and the repo ships with a fixture, a test harness and unit tests so you can see exactly what it flags before you trust it. Code owns the thresholds and the annotation, Jev owns the judgment, and nothing on your screen disappears. Spot the slop: github.com/jxspam/slop-detector.
