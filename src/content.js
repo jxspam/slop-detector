@@ -185,42 +185,89 @@
 
   // ---------- acting on judgments (annotate only — never remove) ----------
 
-  function annotateBadge(el, p) {
-    let host = el.querySelector(`[${OWN_ATTR}~="badge"]`);
-    if (!host) {
-      host = document.createElement("div");
-      host.setAttribute(OWN_ATTR, "badge");
-      host.style.cssText =
-        "margin:6px 0;padding:4px 10px;width:fit-content;border-radius:999px;" +
-        "background:#7f1d1d;color:#fff;font:bold 11px/1.4 system-ui,sans-serif;letter-spacing:.04em;";
-      el.prepend(host);
-    }
-    host.textContent = `⚠ LIKELY AI SLOP · ${(p * 100).toFixed(0)}%`;
+  // Pills live in one fixed overlay layer and track their card's rect, instead
+  // of being anchored inside the card. React feeds (X) recycle card DOM on
+  // scroll: pills anchored inside cards got orphaned, stacked up outside the
+  // cards and blobbed together. In the layer, a pill dies with its card and
+  // never participates in feed layout.
+  const tracked = new Map(); // card element -> { pill }
+  let layer = null;
+
+  function ensureLayer() {
+    if (layer && layer.isConnected) return layer;
+    layer = document.createElement("div");
+    layer.setAttribute(OWN_ATTR, "layer");
+    layer.style.cssText = "position:fixed;inset:0;z-index:2147483646;pointer-events:none;";
+    document.documentElement.appendChild(layer);
+    return layer;
   }
 
-  function annotateOutline(el, p) {
-    el.setAttribute(OWN_ATTR, "check");
-    el.style.outline = "2px dashed #d97706";
-    el.style.outlineOffset = "2px";
-    let tag = el.querySelector(`[${OWN_ATTR}~="tag"]`);
-    if (!tag) {
-      tag = document.createElement("div");
-      tag.setAttribute(OWN_ATTR, "tag");
-      tag.style.cssText =
-        "margin:4px 0;padding:2px 8px;width:fit-content;border-radius:4px;" +
-        "border:1px solid #d97706;color:#92400e;background:#fffbeb;" +
-        "font:600 10px/1.4 system-ui,sans-serif;letter-spacing:.06em;";
-      el.prepend(tag);
-    }
-    tag.textContent = `CHECK THIS · ${(p * 100).toFixed(0)}%`;
+  function pillCss(kind) {
+    return kind === "high"
+      ? "display:inline-block;padding:4px 10px;border-radius:999px;background:#7f1d1d;color:#fff;" +
+          "font:bold 11px/1.4 system-ui,sans-serif;letter-spacing:.04em;white-space:nowrap;"
+      : "display:inline-block;padding:2px 8px;border-radius:4px;border:1px solid #d97706;background:#fffbeb;color:#92400e;" +
+          "font:600 10px/1.4 system-ui,sans-serif;letter-spacing:.06em;white-space:nowrap;";
   }
+
+  function annotate(el, kind, p) {
+    // the dashed outline marks the card itself (medium tier); pills float
+    el.style.outline = kind === "medium" ? "2px dashed #d97706" : "";
+    el.style.outlineOffset = kind === "medium" ? "2px" : "";
+    el.setAttribute(OWN_ATTR, kind);
+
+    const l = ensureLayer();
+    let t = tracked.get(el);
+    if (!t) {
+      const pill = document.createElement("div");
+      l.appendChild(pill);
+      t = { pill };
+      tracked.set(el, t);
+    }
+    t.pill.style.cssText = "position:absolute;left:-9999px;top:0;pointer-events:none;" + pillCss(kind);
+    t.pill.textContent = kind === "high"
+      ? `⚠ LIKELY AI SLOP · ${(p * 100).toFixed(0)}%`
+      : `CHECK THIS · ${(p * 100).toFixed(0)}%`;
+    const r = el.getBoundingClientRect();
+    t.pill.style.left = Math.max(0, Math.min(r.left, innerWidth - t.pill.offsetWidth - 4)) + "px";
+    t.pill.style.top = r.top + "px";
+  }
+
+  // Re-anchor pills to their cards; hide or drop pills whose card was
+  // recycled, detached or collapsed by the feed's virtualization.
+  function sweep() {
+    for (const [el, t] of tracked) {
+      if (!el.isConnected) {
+        t.pill.remove();
+        tracked.delete(el);
+        continue;
+      }
+      const r = el.getBoundingClientRect();
+      if (r.width < 40 || r.height < 40 || r.bottom < -60 || r.top > innerHeight + 60) {
+        // recycled, collapsed, or scrolled out of view: no pill
+        t.pill.style.display = "none";
+      } else {
+        t.pill.style.display = "";
+        t.pill.style.left = Math.max(0, Math.min(r.left, innerWidth - t.pill.offsetWidth - 4)) + "px";
+        t.pill.style.top = r.top + "px";
+      }
+    }
+    if (layer && !tracked.size) {
+      layer.remove();
+      layer = null;
+    }
+  }
+  setInterval(sweep, 400);
+  addEventListener("scroll", sweep, { passive: true });
+  addEventListener("resize", sweep);
 
   function act(el, verdict, p) {
     if (!el.isConnected) return false;
-    if (verdict === "high" && settings.displayMode !== "outline") annotateBadge(el, p);
-    else if (verdict === "high") annotateOutline(el, p);
-    else if (verdict === "medium" && settings.displayMode !== "badge") annotateOutline(el, p);
-    else return false;
+    let kind = null;
+    if (verdict === "high") kind = settings.displayMode === "outline" ? "medium" : "high";
+    else if (verdict === "medium" && settings.displayMode !== "badge") kind = "medium";
+    if (!kind) return false;
+    annotate(el, kind, p);
     console.debug("[slop-detector]", verdict, p.toFixed(2), el);
     return true;
   }
