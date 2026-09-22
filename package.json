@@ -1,0 +1,14 @@
+{
+  "name": "jev-slop-detector",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "Chrome MV3 extension that marks likely AI-slop feed cards with a confidence badge, powered by TypeSafe Jev. BYOK, never removes content.",
+  "scripts": {
+    "test": "node --test test/unit.mjs",
+    "live-check": "node test/live-check.mjs",
+    "relay": "node test/relay.mjs",
+    "serve": "python3 -m http.server 8787"
+  }
+}
