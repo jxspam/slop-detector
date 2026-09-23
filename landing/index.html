@@ -1,0 +1,217 @@
+<!doctype html>
+<!--
+  Slop Detector landing page.
+  One sentence: marks likely AI slop in your X feed as you scroll.
+  Proof: a real screenshot of the extension marking a real feed card.
+  Accent: the badge red the product itself uses, #B91C1C.
+  Sections: hero, the bands, getting it, what it will not do.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Slop Detector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --ink: #101014;
+    --muted: rgba(16,16,20,.68);
+    --hairline: rgba(16,16,20,.08);
+    --accent: #B91C1C;
+    --left: clamp(24px, 5vw, 72px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-left: var(--left); padding-right: 24px; }
+  .wordmark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    padding-top: 40px;
+  }
+  .wordmark span { color: var(--accent); }
+  /* hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 1.3fr;
+    gap: 56px;
+    padding: 120px 0 96px;
+    align-items: start;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: clamp(40px, 5.6vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 12ch;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .hero p {
+    margin-top: 28px;
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+  .hero .mono { margin-top: 24px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 22px; }
+  .hero .mono strong { color: var(--ink); font-weight: 600; }
+  /* media: real screenshot in browser chrome, bleeding right */
+  .frame {
+    position: relative;
+    border: 1px solid var(--hairline);
+    border-radius: 14px 14px 0 0;
+    border-bottom: none;
+    overflow: hidden;
+    margin-right: calc(-1 * max(24px, (100vw - 1180px) / 2 + 24px));
+  }
+  .frame .bar {
+    display: flex; gap: 6px; align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--hairline);
+    background: #FAFAFB;
+  }
+  .frame .bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--hairline); }
+  .frame .bar .url { margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+  .frame img { display: block; width: 100%; height: auto; object-fit: cover; }
+  .badge {
+    position: absolute; top: 18px; left: 18px;
+    display: inline-block; padding: 4px 12px;
+    border-radius: 999px; background: var(--accent); color: #fff;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em;
+    box-shadow: 0 18px 48px rgba(16,16,20,.10);
+  }
+  /* sections */
+  section { padding: 88px 0; border-top: 1px solid var(--hairline); }
+  section:last-of-type { padding-bottom: 64px; }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+  }
+  section p.lead { margin-top: 20px; max-width: 62ch; color: var(--muted); }
+  .bands { margin-top: 44px; max-width: 760px; }
+  .band {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 28px;
+    padding: 22px 0;
+    border-top: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .band .mono { color: var(--ink); font-weight: 600; }
+  .band .badge-demo {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; color: #fff; background: var(--accent);
+    border-radius: 999px; padding: 3px 10px; margin-right: 8px;
+  }
+  .band .demo-outline { border: 2px dashed #D97706; border-radius: 6px; padding: 1px 8px; }
+  .band p { color: var(--muted); }
+  ol.get {
+    margin-top: 44px; max-width: 760px; list-style: none;
+  }
+  ol.get li {
+    display: grid; grid-template-columns: 56px 1fr; gap: 20px;
+    padding: 20px 0; border-top: 1px solid var(--hairline);
+  }
+  ol.get .n { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: var(--muted); }
+  ol.get code {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    background: #FAFAFB; border: 1px solid var(--hairline);
+    border-radius: 6px; padding: 2px 7px;
+  }
+  ol.get p { color: var(--muted); margin-top: 6px; }
+  .notdo { margin-top: 40px; max-width: 760px; }
+  .notdo li {
+    list-style: none; padding: 18px 0; border-top: 1px solid var(--hairline);
+    color: var(--muted);
+    display: grid; grid-template-columns: 56px 1fr; gap: 20px;
+  }
+  .notdo .n { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 20px; color: var(--accent); }
+  .sign { padding: 40px 0 48px; border-top: 1px solid var(--hairline); }
+  .sign img { height: 22px; opacity: .85; }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 72px 0 64px; gap: 40px; }
+    .frame { margin-right: -24px; }
+    .band { grid-template-columns: 1fr; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap wordmark">Slop Detector</div>
+
+  <div class="wrap hero">
+    <div>
+      <h1>Marks likely <em>AI slop</em> in your X feed as you scroll</h1>
+      <p>Every post is judged in real time by a confidence model and marked in place. You keep scrolling, you keep seeing everything, and the likely slop now announces itself.</p>
+      <p class="mono"><span>score <strong>93</strong> &rarr; LIKELY AI SLOP</span><span>score <strong>58</strong> &rarr; CHECK THIS</span><span>score <strong>12</strong> &rarr; untouched</span></p>
+    </div>
+    <figure class="frame" aria-label="The extension marking a real X feed card">
+      <div class="bar"><i></i><i></i><i></i><span class="url">x.com/home</span></div>
+      <img src="live-feed-badge.jpg" alt="A real X feed where one post carries a red LIKELY AI SLOP 92 badge" />
+      <span class="badge">LIKELY AI SLOP 92</span>
+    </figure>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>Three bands, no verdicts</h2>
+      <p class="lead">A model that answers one question per post: how likely is this low-effort AI generated slop, from 0 to 100. The number paints the card. You make the call.</p>
+      <div class="bands">
+        <div class="band">
+          <div><span class="badge-demo">LIKELY AI SLOP 93</span></div>
+          <p>High confidence. The badge sits on the card with the score that earned it.</p>
+        </div>
+        <div class="band">
+          <div><span class="demo-outline">CHECK THIS</span></div>
+          <p>Medium confidence. An outline on the card, and nothing more. It says look, not what to think.</p>
+        </div>
+        <div class="band">
+          <div class="mono">under 40</div>
+          <p>The card is left exactly as it was. No marker, no change.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Getting it</h2>
+      <p class="lead">The extension is a plain unpacked folder. It talks to a small relay on your own machine, which is where the model key lives, so nothing sensitive ships inside the extension.</p>
+      <ol class="get">
+        <li><span class="n">01</span><div>Run <code>npm run relay</code> in the repo, with <code>TYPESAFE_API_KEY</code> set in your environment.<p>The relay listens on port 8787 and forwards one score question at a time.</p></div></li>
+        <li><span class="n">02</span><div>Load the <code>extension/</code> folder as an unpacked extension.<p>Chrome or Edge, developer mode on, then open x.com.</p></div></li>
+        <li><span class="n">03</span><div>Scroll.<p>Cards are judged as they enter the viewport, one question each, marked in place.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>What it will not do</h2>
+      <ul class="notdo">
+        <li><span class="n">01</span><div>Hide, collapse, reorder, blur or filter anything. The overlays are additive, and a failed judgment changes nothing.</div></li>
+        <li><span class="n">02</span><div>Call a post AI generated. It reports a confidence that something is likely slop, and the wording keeps to that.</div></li>
+        <li><span class="n">03</span><div>Ask a follow-up question about a post. One card, one question, one score.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap sign">
+    <img src="adal2.svg" alt="Built with AdaL" />
+  </div>
+</body>
+</html>

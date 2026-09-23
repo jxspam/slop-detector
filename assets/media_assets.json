@@ -1,0 +1,146 @@
+{
+  "assets": {
+    "57e73257": {
+      "id": "57e73257",
+      "type": "image",
+      "src": "launch/hero_16x9.png",
+      "duration_s": null,
+      "resolution": null,
+      "provider": "nano-banana-2",
+      "generation": {
+        "prompt": "Clean product screenshot of a modern minimal social media feed UI (like X/Twitter) on a desktop browser, white background, three feed cards visible with usernames and text. One feed card carries a small red rounded badge at its top that reads exactly \"LIKELY AI SLOP 92\" in white capital letters. Soft directional light, slight depth of field, crisp UI mockup. No logos, no watermarks, no people, no other readable text besides the badge. Generous negative space at the top edge.",
+        "model": "nano-banana-2",
+        "n": 1,
+        "google_search_grounding": false
+      },
+      "created_at": "2026-09-23T08:16:01Z",
+      "tags": null
+    },
+    "621efcd4": {
+      "id": "621efcd4",
+      "type": "image",
+      "src": "launch/hero_9x16.png",
+      "duration_s": null,
+      "resolution": null,
+      "provider": "nano-banana-2",
+      "generation": {
+        "prompt": "Clean product screenshot of a modern minimal social media feed UI (like X/Twitter) on a phone screen, white background, three feed cards stacked vertically with usernames and short text. One feed card carries a small red rounded badge at its top that reads exactly \"LIKELY AI SLOP 92\" in white capital letters. Soft directional light, slight depth of field, crisp UI mockup. No logos, no watermarks, no people, no other readable text besides the badge.",
+        "model": "nano-banana-2",
+        "n": 1,
+        "google_search_grounding": false
+      },
+      "created_at": "2026-09-23T08:16:11Z",
+      "tags": null
+    },
+    "34eb3cbd": {
+      "id": "34eb3cbd",
+      "type": "video",
+      "src": "assets/launch_16x9.mp4",
+      "duration_s": 8.0,
+      "resolution": "720p",
+      "provider": "veo-3.1",
+      "generation": {
+        "prompt": "The feed scrolls slowly upward as if the user is scrolling, and the red LIKELY AI SLOP 92 badge fades in softly on the marked card. All text stays static and unchanged, no new text appears. Gentle, minimal motion, no camera movement, no zoom. Loops seamlessly back to the starting frame. Muted ambient UI sound only, or silence.",
+        "model": "veo-3.1-generate-preview",
+        "operation_id": "models/veo-3.1-generate-preview/operations/63c50v9vrhjy",
+        "use_case": "image_to_video",
+        "aspect_ratio": "16:9",
+        "resolution": "720p",
+        "duration_seconds": 8,
+        "input_image": "launch/hero_16x9.png",
+        "status": "completed",
+        "video_uri": "https://generativelanguage.googleapis.com/v1beta/files/k1af3u40kgsc:download?alt=media"
+      },
+      "created_at": "2026-09-23T08:16:33Z",
+      "tags": null
+    },
+    "de0d980c": {
+      "id": "de0d980c",
+      "type": "video",
+      "src": "assets/launch_9x16.mp4",
+      "duration_s": 8.0,
+      "resolution": "720p",
+      "provider": "veo-3.1",
+      "generation": {
+        "prompt": "The feed scrolls slowly upward as if the user is scrolling, and the red LIKELY AI SLOP 92 badge fades in softly on the marked card. All text stays static and unchanged, no new text appears. Gentle, minimal motion, no camera movement, no zoom. Loops seamlessly back to the starting frame. Muted ambient UI sound only, or silence.",
+        "model": "veo-3.1-generate-preview",
+        "operation_id": "models/veo-3.1-generate-preview/operations/qbkdq8vfp4vo",
+        "use_case": "image_to_video",
+        "aspect_ratio": "16:9",
+        "resolution": "720p",
+        "duration_seconds": 8,
+        "input_image": "launch/hero_9x16.png",
+        "status": "completed",
+        "video_uri": "https://generativelanguage.googleapis.com/v1beta/files/y1z3eub2lj2a:download?alt=media"
+      },
+      "created_at": "2026-09-23T08:16:39Z",
+      "tags": null
+    },
+    "289e56e2": {
+      "id": "289e56e2",
+      "type": "video",
+      "src": "assets/launch_16x9.mp4",
+      "duration_s": 6.0,
+      "resolution": "720p",
+      "provider": "veo-3.1",
+      "generation": {
+        "prompt": "The scene is almost completely still: a clean social media feed UI on a desktop screen. The only motion is the small red LIKELY AI SLOP 92 badge on the first feed card gently fading in and settling, with a very subtle soft shadow appearing under that card. The feed does not scroll. No camera movement, no zoom, no parallax. All text remains perfectly static and unchanged for the whole clip. The final frame matches the starting composition. Silence.",
+        "model": "veo-3.1-generate-preview",
+        "operation_id": "models/veo-3.1-generate-preview/operations/0kr1y9441593",
+        "use_case": "image_to_video",
+        "aspect_ratio": "16:9",
+        "resolution": "720p",
+        "duration_seconds": 6,
+        "input_image": "launch/hero_16x9.png",
+        "status": "completed",
+        "video_uri": "https://generativelanguage.googleapis.com/v1beta/files/fgy6cdq58h74:download?alt=media"
+      },
+      "created_at": "2026-09-23T08:18:59Z",
+      "tags": null
+    },
+    "6316db8c": {
+      "id": "6316db8c",
+      "type": "video",
+      "src": "assets/launch_9x16.mp4",
+      "duration_s": 6.0,
+      "resolution": "720p",
+      "provider": "veo-3.1",
+      "generation": {
+        "prompt": "The scene is almost completely still: a clean social media feed UI on a phone screen. The only motion is the small red LIKELY AI SLOP 92 badge on the middle feed card gently fading in and settling, with a very subtle soft shadow appearing under that card. The feed does not scroll. No camera movement, no zoom, no parallax. All text remains perfectly static and unchanged for the whole clip. The final frame matches the starting composition. Silence.",
+        "model": "veo-3.1-generate-preview",
+        "operation_id": "models/veo-3.1-generate-preview/operations/f4mwudu0yalc",
+        "use_case": "image_to_video",
+        "aspect_ratio": "16:9",
+        "resolution": "720p",
+        "duration_seconds": 6,
+        "input_image": "launch/hero_9x16.png",
+        "status": "completed",
+        "video_uri": "https://generativelanguage.googleapis.com/v1beta/files/f5btbeuwfejb:download?alt=media"
+      },
+      "created_at": "2026-09-23T08:19:08Z",
+      "tags": null
+    },
+    "e676d230": {
+      "id": "e676d230",
+      "type": "video",
+      "src": "assets/launch_9x16.mp4",
+      "duration_s": 6.0,
+      "resolution": "720p",
+      "provider": "veo-3.1",
+      "generation": {
+        "prompt": "A completely static phone screen mockup of a social feed. Absolutely no scrolling, no camera movement, no zoom. The only change in the entire clip: the small red badge reading LIKELY AI SLOP 92 on the middle card smoothly cross-fades in over the first second and then stays still. Every letter of text stays pixel-identical for the full duration. Silence.",
+        "model": "veo-3.1-generate-preview",
+        "operation_id": "models/veo-3.1-generate-preview/operations/cj78pgapsd3h",
+        "use_case": "image_to_video",
+        "aspect_ratio": "16:9",
+        "resolution": "720p",
+        "duration_seconds": 6,
+        "input_image": "launch/hero_9x16.png",
+        "status": "completed",
+        "video_uri": "https://generativelanguage.googleapis.com/v1beta/files/m7247k7hq324:download?alt=media"
+      },
+      "created_at": "2026-09-23T08:21:18Z",
+      "tags": null
+    }
+  }
+}
