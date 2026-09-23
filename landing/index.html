@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slop Detector</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
+
+    :root {
+      --paper: #ffffff;
+      --ink: #101014;
+      --muted: rgba(16, 16, 20, 0.68);
+      --hairline: rgba(16, 16, 20, 0.08);
+      --accent: #ef4444;
+      --accent-bg: rgba(239, 68, 68, 0.12);
+      --accent-border: rgba(239, 68, 68, 0.4);
+      --amber: #f59e0b;
+      --font-display: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin-left: clamp(24px, 5vw, 72px);
+      margin-right: auto;
+      padding-right: clamp(24px, 5vw, 72px);
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      padding-top: 40px;
+      margin-bottom: 72px;
+      color: var(--ink);
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 1.3fr;
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 96px;
+    }
+
+    .hero-text {
+      max-width: 520px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 68px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: var(--ink);
+    }
+
+    h1 span.accent {
+      color: var(--accent);
+    }
+
+    .hero-body {
+      font-size: 19px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      background-color: var(--accent);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      transition: opacity 0.15s ease;
+    }
+
+    .cta-btn:hover {
+      opacity: 0.9;
+    }
+
+    .hero-media {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--hairline);
+      box-shadow: 0 18px 48px rgba(16, 16, 20, 0.10);
+      background-color: #000000;
+    }
+
+    .hero-media video {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* Section layout */
+    section {
+      padding: 88px 0;
+      border-top: 1px solid var(--hairline);
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: var(--ink);
+    }
+
+    .grid-three {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      margin-top: 36px;
+    }
+
+    .column h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .column p {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 320px;
+    }
+
+    .column .num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .code-block {
+      background-color: #0f1419;
+      color: #e7e9ea;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-top: 24px;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+
+    .code-block code {
+      color: inherit;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .grid-three {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="wordmark">Slop Detector</div>
+
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Marks likely AI slop in your feed as you <span class="accent">scroll</span>.</h1>
+        <p class="hero-body">
+          A Chrome MV3 extension powered by TypeSafe Jev System One decisions. Evaluates posts in real time without obscuring, hiding, or deleting content.
+        </p>
+        <a href="#setup" class="cta-btn">Install Extension</a>
+      </div>
+
+      <div class="hero-media">
+        <video autoplay muted loop playsinline poster="assets/demo-poster.jpg" src="assets/demo.mp4"></video>
+      </div>
+    </div>
+
+    <section id="behavior">
+      <h2>Calibrated confidence bands</h2>
+      <p style="color: var(--muted); max-width: 620px;">
+        Every post goes through TypeSafe Jev as a single score question. Decisions land across three clear bands instead of binary blacklists.
+      </p>
+
+      <div class="grid-three">
+        <div class="column">
+          <div class="num">01</div>
+          <h3>Score 80 and above</h3>
+          <p>Receives a compact red pill badge showing LIKELY AI SLOP with the exact confidence percentage.</p>
+        </div>
+        <div class="column">
+          <div class="num">02</div>
+          <h3>Score 40 to 79</h3>
+          <p>Receives an amber outline around the card. Prompts the reader to inspect phrasing without issuing an accusation.</p>
+        </div>
+        <div class="column">
+          <div class="num">03</div>
+          <h3>Score under 40</h3>
+          <p>Remains completely untouched. No badge, no outline, no visual noise.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="principles">
+      <h2>Non-destructive design</h2>
+      <p style="color: var(--muted); max-width: 620px;">
+        Unlike filters that collapse or remove tweets, Slop Detector is purely additive. Your timeline remains whole. Failed API calls leave cards unchanged.
+      </p>
+    </section>
+
+    <section id="setup">
+      <h2>Run locally</h2>
+      <p style="color: var(--muted); max-width: 620px;">
+        Start the local relay server, load the unpacked extension into Edge or Chrome, and browse your feed.
+      </p>
+
+      <div class="code-block">
+<code>git clone https://github.com/jxspam/slop-detector.git
+cd slop-detector
+export TYPESAFE_API_KEY="your_api_key"
+node relay/server.js</code>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

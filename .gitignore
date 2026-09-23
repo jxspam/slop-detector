@@ -1,2 +1,9 @@
 .adal/
+.cache/
+.remotion/
+demo_frames/
+assets/
 node_modules/
+.DS_Store
+*.log
+test_frame.png
