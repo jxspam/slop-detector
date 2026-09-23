@@ -1,2 +1,5 @@
 .adal/
 node_modules/
+relay.log
+.DS_Store
+*.env*

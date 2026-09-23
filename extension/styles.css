@@ -1,0 +1,41 @@
+/* Slop Detector styles */
+
+.slop-detector-badge-container {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 2px;
+}
+
+.slop-detector-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #991b1b;
+  background-color: #fee2e2;
+  border: 1px solid #f87171;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  user-select: none;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.slop-detector-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ef4444;
+  border-radius: 50%;
+}
+
+article.slop-detector-check {
+  outline: 2px solid #f59e0b !important;
+  outline-offset: -2px;
+  border-radius: 12px;
+}
