@@ -2,14 +2,15 @@
 
 ## Product Demo Frame Verification
 
-The product demo video (`demo.mp4`) records real feed scrolling with active live evaluations.
-Verified frame numbers from the recorded clip:
+The product demo video (`demo.mp4`) records real feed scrolling with active live evaluations on the X search feed.
+Verified frame numbers from the 20-second recorded clip (300 frames at 15 fps):
 
-- Frame 20: Displays the `LIKELY AI SLOP` compact red pill badge with exact score `92%`.
-- Frame 80: Displays the `CHECK THIS` amber outline around a card scoring in the 40 to 79 band.
-- Frame 130: Displays an untouched card scoring under 40 with zero overlay or alteration.
+- Frame 1: Wide establishing view of the real search feed showing Samuel's post with the attached `LIKELY AI SLOP` badge.
+- Frame 120: Camera move push-in (1.6x zoom) onto the `LIKELY AI SLOP` red pill badge with the score `100%` clearly readable.
+- Frame 225: Smooth feed scrolling revealing subsequent posts and attached score badges.
+- Frame 300: Smooth return to the exact initial scroll position, matching Frame 1 for a seamless loop with zero flash or jump.
 
-Total clip duration: 10.0 seconds (150 frames at 15 fps).
+Total clip duration: 20.0 seconds (300 frames at 15 fps).
 
 ## Launch Clips
 
