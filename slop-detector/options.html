@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Slop Detector settings</title>
+  <style>
+    body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; max-width: 480px; margin: 2rem auto; }
+    label { display: block; margin-top: 1rem; font-weight: 600; }
+    input, textarea { width: 100%; margin-top: 4px; box-sizing: border-box; }
+    button { margin-top: 1rem; }
+    #status { margin-left: 8px; color: #0a7d33; }
+  </style>
+</head>
+<body>
+  <h1>Slop Detector</h1>
+  <label>TypeSafe API key
+    <input id="apiKey" type="password" placeholder="Paste your TypeSafe API key" />
+  </label>
+  <label>High threshold (LIKELY AI SLOP badge)
+    <input id="highThreshold" type="number" min="0" max="100" />
+  </label>
+  <label>Medium threshold (CHECK THIS outline)
+    <input id="mediumThreshold" type="number" min="0" max="100" />
+  </label>
+  <button id="save">Save</button><span id="status"></span>
+  <script src="options.js"></script>
+</body>
+</html>

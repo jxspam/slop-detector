@@ -1,0 +1,28 @@
+/* Additive overlays only — the feed content itself is never restyled away. */
+
+article.slop-reviewed {
+  position: relative;
+}
+
+/* Medium band: subtle CHECK THIS outline */
+article.slop-medium {
+  outline: 2px dashed #b58900;
+  outline-offset: 2px;
+  border-radius: 16px;
+}
+
+/* High band: LIKELY AI SLOP badge with the score */
+.slop-badge {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  z-index: 10;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e0245e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  pointer-events: none;
+}

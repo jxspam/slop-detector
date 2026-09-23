@@ -1,3 +1,3 @@
-# slop-detector
+# Slop Detector
 
-A real-time AI slop detector for your feed, powered by TypeSafe Jev.
+A Chrome MV3 extension that flags likely AI-generated slop in a social feed.
