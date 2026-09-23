@@ -1,0 +1,12 @@
+{
+  "name": "slop-detector",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "jsdom": "^24.1.3"
+  }
+}
