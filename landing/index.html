@@ -1,0 +1,328 @@
+<!--
+The one sentence: Marks likely AI slop in the X feed as you scroll.
+The proof: Real product demo video recording from live feed in hero media.
+The accent: #ef4444 from the product badge.
+The sections that earn their place: hero, how it behaves, how to install, what it will not do.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slop Detector</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #101014;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      padding-left: clamp(24px, 5vw, 72px);
+      padding-right: clamp(24px, 5vw, 72px);
+      max-width: 1280px;
+    }
+
+    .wordmark {
+      padding-top: 48px;
+      padding-bottom: 24px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #101014;
+    }
+
+    .hero {
+      padding-top: 64px;
+      padding-bottom: 96px;
+      display: grid;
+      grid-template-columns: 1.05fr 1.3fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .hero-text {
+      max-width: 540px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(48px, 5vw, 68px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: #101014;
+      margin-bottom: 28px;
+    }
+
+    .hero-body {
+      font-size: 19px;
+      line-height: 1.55;
+      color: rgba(16, 16, 20, 0.72);
+      margin-bottom: 36px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 28px;
+      background-color: #ef4444;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 6px;
+      transition: background-color 0.15s ease;
+    }
+
+    .hero-cta:hover {
+      background-color: #dc2626;
+    }
+
+    .hero-media {
+      position: relative;
+      border: 1px solid rgba(16, 16, 20, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 18px 48px rgba(16, 16, 20, 0.10);
+      background-color: #0f172a;
+    }
+
+    .hero-media video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .media-anchor {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background-color: #fee2e2;
+      border: 1px solid #f87171;
+      color: #991b1b;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-rule {
+      height: 1px;
+      background-color: rgba(16, 16, 20, 0.08);
+      border: none;
+      margin: 0;
+    }
+
+    section {
+      padding-top: 88px;
+      padding-bottom: 88px;
+      max-width: 960px;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #101014;
+      margin-bottom: 24px;
+    }
+
+    .section-body {
+      font-size: 17px;
+      color: rgba(16, 16, 20, 0.72);
+      max-width: 68ch;
+      margin-bottom: 32px;
+    }
+
+    .behavior-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .behavior-item {
+      border-top: 2px solid #101014;
+      padding-top: 20px;
+    }
+
+    .behavior-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: rgba(16, 16, 20, 0.5);
+      margin-bottom: 8px;
+    }
+
+    .behavior-title {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .behavior-desc {
+      font-size: 15px;
+      color: rgba(16, 16, 20, 0.72);
+    }
+
+    .code-block {
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 24px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin-top: 24px;
+    }
+
+    .rules-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+
+    .rules-list li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: rgba(16, 16, 20, 0.85);
+    }
+
+    .rules-list li::before {
+      content: "/";
+      position: absolute;
+      left: 0;
+      color: #ef4444;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 40px;
+        padding-bottom: 64px;
+      }
+      .hero-text {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="wordmark">Slop Detector</div>
+
+    <div class="hero">
+      <div class="hero-text">
+        <h1>Marks likely AI slop in the X feed as you scroll.</h1>
+        <p class="hero-body">
+          A Chrome extension powered by the TypeSafe Jev System One model. Each post is evaluated in real time for 0.0018 cents, placing confidence badges on synthetic content without touching genuine discussion.
+        </p>
+        <a href="https://github.com/jxspam/slop-detector" class="hero-cta">View Source on GitHub</a>
+      </div>
+
+      <div class="hero-media">
+        <span class="media-anchor">LIKELY AI SLOP 85</span>
+        <video autoplay muted loop playsinline poster="hero-poster.png">
+          <source src="product-demo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="page">
+    <section>
+      <h2>Scoring and classification</h2>
+      <p class="section-body">
+        The extension uses Jev to rate content against an ordered rubric. Scores are normalized to a 100 point confidence index.
+      </p>
+
+      <div class="behavior-grid">
+        <div class="behavior-item">
+          <div class="behavior-num">01</div>
+          <div class="behavior-title">Score 80 and above</div>
+          <div class="behavior-desc">
+            Renders a compact crimson pill badge reading LIKELY AI SLOP followed by the score.
+          </div>
+        </div>
+
+        <div class="behavior-item">
+          <div class="behavior-num">02</div>
+          <div class="behavior-title">Score 40 to 79</div>
+          <div class="behavior-desc">
+            Applies a subtle amber CHECK THIS outline around the card border without a verdict badge.
+          </div>
+        </div>
+
+        <div class="behavior-item">
+          <div class="behavior-num">03</div>
+          <div class="behavior-title">Score under 40</div>
+          <div class="behavior-desc">
+            Left untouched. Authentic human conversation receives no badge or visual modification.
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="page">
+    <section>
+      <h2>Installation and setup</h2>
+      <p class="section-body">
+        Run the local relay server, then load the unpacked extension in Chrome or Edge.
+      </p>
+
+      <div class="code-block">git clone https://github.com/jxspam/slop-detector.git
+cd slop-detector
+export TYPESAFE_API_KEY=your_key_here
+node relay.js</div>
+
+      <p class="section-body" style="margin-top: 24px;">
+        Open edge://extensions or chrome://extensions, enable Developer Mode, and select Load Unpacked pointing to the extension directory.
+      </p>
+    </section>
+  </div>
+
+  <hr class="section-rule">
+
+  <div class="page">
+    <section style="padding-bottom: 120px;">
+      <h2>Guarantees</h2>
+      <p class="section-body">
+        Slop Detector reports model confidence. It does not enforce censorship.
+      </p>
+
+      <ul class="rules-list">
+        <li>Never removes, hides, collapses, or reorders feed content.</li>
+        <li>Says likely AI slop, never is AI generated.</li>
+        <li>Keeps your API key strictly on the local relay server, never in the browser.</li>
+        <li>Failed or rate limited calls leave the post completely untouched.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
