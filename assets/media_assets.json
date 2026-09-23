@@ -1,0 +1,87 @@
+{
+  "assets": {
+    "3b046c87": {
+      "id": "3b046c87",
+      "type": "video",
+      "src": "assets/launch_16_9.mp4",
+      "duration_s": 10.1,
+      "resolution": "768P",
+      "provider": "minimax-h3",
+      "generation": {
+        "prompt": "Clean product launch video: Real-time scrolling of social media feed as Slop Detector evaluates each post with TypeSafe Jev. Smooth camera glide across the screen revealing crimson LIKELY AI SLOP 85 badge on synthetic content and amber outlines on promotional posts. Subtle ambient modern electronic synth soundtrack with gentle UI chime as badge snaps into place.",
+        "model": "MiniMax-H3",
+        "operation_id": "minimax/video_generation/444906735226953",
+        "use_case": "image_to_video",
+        "aspect_ratio": "adaptive",
+        "resolution": "768P",
+        "duration_seconds": 10,
+        "input_image": "assets/hero_16_9.png",
+        "status": "completed",
+        "download_url": "https://video-product.cdn.minimax.io/inference_output/rollout/2026-09-23/957c92d8-ebb6-44db-a5e1-eb10501e1e88/output_aigc.mp4"
+      },
+      "created_at": "2026-09-23T14:10:40Z",
+      "tags": null
+    },
+    "8e2a9f22": {
+      "id": "8e2a9f22",
+      "type": "video",
+      "src": "assets/launch_9_16.mp4",
+      "duration_s": 10.1,
+      "resolution": "768P",
+      "provider": "minimax-h3",
+      "generation": {
+        "prompt": "Vertical social media launch video: Real-time scrolling of social feed on mobile screen as Slop Detector marks synthetic posts with TypeSafe Jev. Smooth downward scroll showing crimson LIKELY AI SLOP 85 pill badge appearing on AI posts and amber outline on formulaic threads. Ambient electronic synth soundtrack with gentle UI notification chime.",
+        "model": "MiniMax-H3",
+        "operation_id": "minimax/video_generation/444906916900928",
+        "use_case": "image_to_video",
+        "aspect_ratio": "adaptive",
+        "resolution": "768P",
+        "duration_seconds": 10,
+        "input_image": "assets/hero_9_16.png",
+        "status": "completed",
+        "download_url": "https://video-product.cdn.minimax.io/inference_output/rollout/2026-09-23/7fe5c0fc-80f2-4fff-a429-e2ce306173d8/output_aigc.mp4"
+      },
+      "created_at": "2026-09-23T14:10:52Z",
+      "tags": null
+    },
+    "e068de76": {
+      "id": "e068de76",
+      "type": "video",
+      "src": "assets/product-demo.mp4",
+      "duration_s": 5.4,
+      "resolution": null,
+      "provider": "user_import",
+      "generation": {
+        "source_path": "assets/product-demo.mp4",
+        "original_filename": "product-demo.mp4",
+        "imported": true,
+        "copy": false
+      },
+      "created_at": "2026-09-23T14:11:56Z",
+      "tags": [
+        "product-demo",
+        "verified"
+      ]
+    },
+    "faea838d": {
+      "id": "faea838d",
+      "type": "video",
+      "src": "assets/launch_16_9_imported.mp4",
+      "duration_s": 10.1,
+      "resolution": null,
+      "provider": "user_import",
+      "generation": {
+        "source_path": "launch/launch_16_9.mp4",
+        "original_filename": "launch_16_9.mp4",
+        "imported": true,
+        "copy": false
+      },
+      "created_at": "2026-09-23T14:15:31Z",
+      "tags": [
+        "launch",
+        "minimax-h3",
+        "16-9"
+      ]
+    }
+  }
+}

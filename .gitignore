@@ -1,2 +1,7 @@
 .adal/
 node_modules/
+relay.log
+.DS_Store
+*.env*
+.remotion/
+demo_frames/
