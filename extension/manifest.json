@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Slop Detector",
+  "version": "1.0.0",
+  "description": "Marks likely AI slop in the X feed as you scroll. Confidence bands only, never hides content.",
+  "permissions": ["storage"],
+  "host_permissions": ["http://127.0.0.1:8787/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["mark.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html"
+}
