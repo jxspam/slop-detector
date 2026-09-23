@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Slop Detector</title>
+  <style>
+    body { font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #ffffff; color: #0f1419; margin: 0; padding: 48px; }
+    h1 { font-size: 20px; margin: 0 0 24px; }
+    .band { margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .band label { width: 220px; font-size: 14px; font-weight: 600; }
+    .band input { width: 80px; padding: 6px 8px; border: 1px solid #cfd9de; border-radius: 8px; font-size: 14px; }
+    .swatch { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+    #status { margin-left: 12px; font-size: 13px; color: #536471; }
+    button { margin-top: 8px; padding: 8px 20px; border: none; border-radius: 999px; background: #0f1419; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Slop Detector</h1>
+  <div class="band">
+    <span class="swatch" style="background:#b91c1c"></span>
+    <label for="high">LIKELY AI SLOP from score</label>
+    <input id="high" type="number" min="1" max="100" />
+  </div>
+  <div class="band">
+    <span class="swatch" style="border:2px dashed #d97706; background:transparent"></span>
+    <label for="medium">CHECK THIS outline from score</label>
+    <input id="medium" type="number" min="0" max="99" />
+  </div>
+  <div>
+    <button id="save">Save</button>
+    <span id="status"></span>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

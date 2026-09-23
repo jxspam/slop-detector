@@ -1,0 +1,14 @@
+{
+  "name": "slop-detector",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Marks likely AI slop in the X feed as you scroll. Confidence bands only, never hides content.",
+  "scripts": {
+    "test": "node --test test/judge.test.js test/fixture.test.js",
+    "relay": "node extension/relay.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.3"
+  }
+}
