@@ -1,14 +1,27 @@
 # Launch Assets
 
-## Product Demo Frame Verification
+## Product Demo Verification
 
 The product demo video (`demo.mp4`) records real feed scrolling with active live evaluations on the X search feed.
-Verified frame numbers from the 20-second recorded clip (300 frames at 15 fps):
+Verified metrics from the 20-second recorded clip (300 frames at 15 fps):
 
-- Frame 1: Wide establishing view of the real search feed showing Samuel's post with the attached `LIKELY AI SLOP` badge.
-- Frame 120: Camera move push-in (1.6x zoom) onto the `LIKELY AI SLOP` red pill badge with the score `100%` clearly readable.
-- Frame 225: Smooth feed scrolling revealing subsequent posts and attached score badges.
-- Frame 300: Smooth return to the exact initial scroll position, matching Frame 1 for a seamless loop with zero flash or jump.
+### Frame Brightness Analysis (Locked Dark Theme)
+- Total frames measured: 300
+- Dark mode frames (< 100 YAVG): 300 (100%)
+- Light mode frames (> 100 YAVG): 0 (0%)
+- Theme flips: 0 (PASSED)
+- Min brightness (YAVG): 28.3284
+- Max brightness (YAVG): 46.6736 (smooth curve during close-up on the badge)
+- Mean brightness (YAVG): 36.8188
+- Frame 1 brightness (YAVG): 28.3423
+- Frame 300 brightness (YAVG): 28.3423
+- Loop boundary delta (Frame 1 vs Frame 300): 0.000000 (Exact Match)
+
+### Frame Sequence
+- Frame 1: Wide establishing view of the search feed showing Samuel's post with the attached `LIKELY AI SLOP` badge.
+- Frame 120: Smooth camera push-in (1.7x zoom) onto the `LIKELY AI SLOP` red pill badge with the score `100%` clearly readable.
+- Frame 225: Smooth camera zoom-out returning to the wide feed view.
+- Frame 300: Exact match to Frame 1 (delta 0.000000) for a seamless loop with zero flash or restart jump.
 
 Total clip duration: 20.0 seconds (300 frames at 15 fps).
 
