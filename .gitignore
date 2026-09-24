@@ -1,4 +1,5 @@
 .adal/
 node_modules/
 AGENTS.md
+relay.log
 
