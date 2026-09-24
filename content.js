@@ -31,12 +31,10 @@ function extractTweetText(article) {
   return textEl.innerText.trim();
 }
 
-async function requestJudgment(text) {
-  const url = `${currentConfig.relayUrl}/judge`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+function requestJudgment(text) {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage({
+      type: "JUDGE",
       text,
       thresholds: {
         high: currentConfig.highThreshold,
@@ -45,14 +43,16 @@ async function requestJudgment(text) {
         colorCheck: currentConfig.colorCheck,
         colorClean: currentConfig.colorClean
       }
-    })
+    }, (response) => {
+      if (chrome.runtime.lastError) {
+        return reject(new Error(chrome.runtime.lastError.message));
+      }
+      if (response && response.error) {
+        return reject(new Error(response.error));
+      }
+      resolve(response);
+    });
   });
-
-  if (!response.ok) {
-    throw new Error(`Relay error ${response.status}`);
-  }
-
-  return response.json();
 }
 
 function applyVerdict(article, result) {
