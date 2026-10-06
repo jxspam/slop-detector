@@ -1,0 +1,6 @@
+file '/Users/jaxkoh/adal/videos/jev-slop-detector/launch-clip/segs/s1.mp4'
+file '/Users/jaxkoh/adal/videos/jev-slop-detector/launch-clip/segs/s2.mp4'
+file '/Users/jaxkoh/adal/videos/jev-slop-detector/launch-clip/segs/s3.mp4'
+file '/Users/jaxkoh/adal/videos/jev-slop-detector/launch-clip/segs/s4.mp4'
+file '/Users/jaxkoh/adal/videos/jev-slop-detector/launch-clip/segs/s5.mp4'
+file '/Users/jaxkoh/adal/videos/jev-slop-detector/launch-clip/segs/s6.mp4'

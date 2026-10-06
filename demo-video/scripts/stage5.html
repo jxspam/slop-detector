@@ -1,0 +1,237 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Jev Slop Detector Film v5</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+@font-face{font-family:'Space Grotesk';font-weight:500;src:url(assets/fonts/space-grotesk-500-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-weight:600;src:url(assets/fonts/space-grotesk-600-latin.woff2) format('woff2')}
+@font-face{font-family:'JB';font-weight:500;src:url(assets/fonts/JetBrains-Mono-500-normal.ttf)}
+@font-face{font-family:'JB';font-weight:600;src:url(assets/fonts/JetBrains-Mono-600-normal.ttf)}
+:root{--pink:#FF5898;--deep:#E84D87;--ink:#16070D;--cream:#FFE4EE}
+*{box-sizing:border-box;margin:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--cream);font-family:'Inter',sans-serif;color:var(--ink)}
+.scene{position:absolute;inset:0;opacity:0;overflow:hidden;background:var(--cream)}
+img.fill{position:absolute;display:block}
+#cap{position:absolute;left:0;right:0;bottom:0;height:112px;display:flex;align-items:center;justify-content:center;
+     font:600 42px/1.1 'Space Grotesk';letter-spacing:-0.4px;color:var(--ink);opacity:0;z-index:40;background:var(--cream)}
+#statcard{position:absolute;left:64px;top:150px;width:252px;background:#fff;border-radius:18px;padding:24px 28px;
+          box-shadow:0 20px 60px rgba(22,7,13,.14);opacity:0;z-index:30}
+#statcard div{display:flex;flex-direction:column;align-items:flex-start}
+#statcard div+div{margin-top:20px}
+#statcard b{font:600 50px 'JB';color:var(--ink);line-height:1.05}
+#statcard i{font:500 17px 'Inter';font-style:normal;color:#8a6f7a;letter-spacing:.7px;text-transform:uppercase;margin-top:4px}
+.win{position:absolute;background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(22,7,13,.16);overflow:hidden}
+.bar{height:44px;display:flex;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid #f3dbe5;font:500 17px 'JB';color:#9b7a88}
+.dot{width:12px;height:12px;border-radius:50%;background:#f1c9d8}
+.port{position:absolute;left:0;right:0;top:44px;bottom:0;overflow:hidden}
+#mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:260px;opacity:0;z-index:20}
+</style></head><body>
+
+<div class="scene" id="s01"><img class="fill" id="i01"></div>
+<div class="scene" id="s02"><img class="fill" id="i02"></div>
+<div class="scene" id="s03"><img class="fill" id="i03"></div>
+<div class="scene" id="s04"><img class="fill" id="i04"></div>
+<div class="scene" id="s05"><img class="fill" id="i05"></div>
+<div class="scene" id="s06"><img class="fill" id="i06"></div>
+<div class="scene" id="s07"><img class="fill" id="i07"></div>
+<div class="scene" id="s08"><img class="fill" id="i08"></div>
+<div class="scene" id="s09"><img class="fill" id="i09"></div>
+<div class="scene" id="s10"><img class="fill" id="i10"></div>
+<div class="scene" id="s11"><img class="fill" id="i11"></div>
+<div class="scene" id="s12"><img class="fill" id="i12">
+  <div class="win" id="prwin" style="left:300px;top:96px;width:1540px;height:904px;opacity:0">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">github.com/jxspam/slop-detector/pull/5</span></div>
+    <div class="port"><img id="prImg" src="v5/assets/pr/conversation-full.png" style="position:absolute;left:0;top:0;width:1540px"></div>
+  </div></div>
+<div class="scene" id="s13"><img class="fill" id="i13"></div>
+<div class="scene" id="s14">
+  <div class="win" id="w16" style="left:236px;top:258px;width:1020px;height:578px">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">launch_16_9.mp4</span></div>
+    <div class="port"><img id="c16" style="position:absolute;left:0;top:0;width:1020px"></div></div>
+  <div class="win" id="w9" style="left:1364px;top:223px;width:340px;height:648px">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">launch_9_16.mp4</span></div>
+    <div class="port"><img id="c9" style="position:absolute;left:0;top:0;width:340px"></div></div>
+</div>
+<div class="scene" id="s15">
+  <div class="win" id="lgwin" style="left:300px;top:96px;width:1540px;height:904px">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">landing-tau-eight-44.vercel.app</span></div>
+    <div class="port"><img id="lgImg" src="v5/assets/live-full.png" style="position:absolute;left:0;top:0;width:1540px"></div>
+  </div></div>
+<div class="scene" id="s16"></div>
+
+<img id="mark" src="assets/adal1.svg">
+<div id="cap"><span id="capT"></span></div>
+<div id="statcard"><div><b id="clock">00:00</b><i>build time</i></div><div><b id="spend">$0.00</b><i>spend</i></div></div>
+
+<script>
+// One take, one session: every frame comes from v5/takes/20260923-092317.
+// Terminal segments are out/segs5/<name>, browser frames are that take's browser-safe/ only.
+const DUR = [['s01',4.0],['s02',6.0],['s03',5.0],['s04',6.0],
+             ['s05',5.5],['s06',5.0],
+             ['s07',4.5],['s08',5.0],['s09',5.0],['s10',5.5],['s11',5.0],['s12',7.5],
+             ['s13',7.0],['s14',6.5],['s15',4.5],['s16',4.0]];
+const T = {}; let acc = 0; for (const [k,d] of DUR){ T[k]=[acc,acc+d]; acc+=d; }
+window.T = T; window.END = acc;
+
+// The four stage rail reads its seconds from v5/stages.json, the file this cut was planned in.
+// Read synchronously so the first drawStages call already has the real map.
+(function(){ const x = new XMLHttpRequest(); x.open('GET','v5/stages.json',false); x.send(null);
+  window.STAGES = JSON.parse(x.responseText); })();
+// The caption text is v5/labels.json, one label per beat, nothing authored in this page.
+const LABELS = (function(){ const x = new XMLHttpRequest(); x.open('GET','v5/labels.json',false); x.send(null);
+  const m = {}; for (const b of JSON.parse(x.responseText)) m[b.beat] = b.label; return m; })();
+const BEAT = {s01:'b01',s02:'b02',s03:'b03',s04:'b04',s05:'b05',s06:'b06',s07:'b07',s08:'b08',
+              s09:'b09',s10:'b10',s11:'b11',s12:'b12',s13:'b13',s14:'b14',s15:'b15',s16:'b16'};
+
+const ease = x => x<0?0:x>1?1:(1-Math.cos(Math.PI*x))/2;
+const lerp = (a,b,x) => a+(b-a)*x;
+const seg = (t,a,b) => ease((t-a)/(b-a));
+const clamp = (x,a,b) => x<a?a:x>b?b:x;
+const pad = n => String(n).padStart(5,'0');
+
+let SPEND = null, SEGMAP = null, BRIDX = null;
+const pend = [];
+function setSrc(img, src){ if (img.getAttribute('src') !== src) img.setAttribute('src', src); pend.push(img); }
+
+// put source point (cx,cy) at the stage centre at scale s
+function cam(img, sw, sh, cx, cy, s){
+  const w=sw*s, h=sh*s; img.style.width=w+'px'; img.style.height=h+'px';
+  img.style.left=(960-cx*s)+'px'; img.style.top=(540-cy*s)+'px';
+}
+// the rendered terminal window: 1360x765 at pixelRatio 2
+const TERM = { w:2720, h:1530, cx:1359.5, cy:790.5, s:0.68 };
+let castNow = 7.0;
+function term(img, name, f0, f1, lt, t0, t1){
+  const f = Math.round(clamp(lerp(f0,f1,(lt-t0)/(t1-t0)), Math.min(f0,f1), Math.max(f0,f1)));
+  setSrc(img, `out/segs5/${name}/frames/${pad(f)}.png`);
+  cam(img, TERM.w, TERM.h, TERM.cx, TERM.cy, TERM.s);
+  castNow = castOfSeg(name, f);
+  return f;
+}
+// a segment frame index back to its real cast second, through the render speed blocks
+function castOfSeg(name, f){
+  const m = SEGMAP[name]; const vt = f/30;
+  for (const [v0,v1,c0,c1] of m.blocks){ if (vt <= v1) return c0 + (c1-c0)*clamp((vt-v0)/(v1-v0),0,1); }
+  return m.B;
+}
+// a browser frame number back to its cast second, straight from browser-safe/index.json
+const BRSRC = 'v5/takes/20260923-092317/browser-safe';
+function browser(img, f, sw, sh, cx, cy, s){
+  setSrc(img, `${BRSRC}/${pad(f)}.jpg`);
+  cam(img, sw, sh, cx, cy, s);
+  castNow = BRIDX[f] !== undefined ? BRIDX[f] : castNow;
+}
+
+function caption(id, lt, d){
+  const txt = LABELS[BEAT[id]] || '';
+  const on = txt ? seg(lt,0.55,0.95) * (1 - seg(lt,d-0.55,d-0.2)) : 0;
+  const c = document.getElementById('cap');
+  c.style.opacity = on;
+  if (on>0) document.getElementById('capT').textContent = txt;
+}
+
+async function render(t){
+  if (!SPEND) SPEND = await (await fetch('v5/spend-run.json')).json();
+  if (!SEGMAP) SEGMAP = await (await fetch('v5/segmap.json')).json();
+  if (!BRIDX) { const raw = await (await fetch(`${BRSRC}/index.json`)).json();
+                BRIDX = {}; for (const e of raw) BRIDX[parseInt(e.file.slice(0,5),10)] = e.t; }
+  pend.length = 0;
+  const sc = document.getElementById('statcard'), mk = document.getElementById('mark');
+  mk.style.opacity = 0;
+  for (const [id,[a,b]] of Object.entries(T)){
+    const el = document.getElementById(id);
+    const on = t>=a && t<b;
+    el.style.opacity = on ? 1 : 0;
+    if (!on) continue;
+    const lt = t-a, d = b-a;
+    caption(id, lt, d);
+
+    // b01 the capabilities menu, browser use switched on by hand
+    if (id==='s01'){ term(document.getElementById('i01'),'caps',85,175,lt,0,d); }
+
+    // b02 the one paragraph, typed and sent
+    if (id==='s02'){ term(document.getElementById('i02'),'idea',10,215,lt,0,d-0.3); }
+
+    // b03 the TypeSafe Jev documentation, open in the attached browser
+    if (id==='s03'){ const f = lt < d*0.52 ? 2 : 4;
+      browser(document.getElementById('i03'), f, 2976, 1548, 1470, 716, lerp(0.63,0.675,lt/d)); }
+
+    // b04 the reference post and the replies under it
+    if (id==='s04'){ const f = Math.round(34 + 366*Math.pow(clamp(lt/(d-1.2),0,1),0.55));
+      browser(document.getElementById('i04'), f, 2976, 1548, 1366, 790, lerp(0.80,0.84,lt/d)); }
+
+    // b05 RESEARCH.md and then the PRD written out of it
+    if (id==='s05'){ term(document.getElementById('i05'),'prd',20,200,lt,0,d); }
+
+    // b06 the extension's judge module and its test file
+    if (id==='s06'){ term(document.getElementById('i06'),'judge',10,170,lt,0,d); }
+
+    // b07 the unit tests run
+    if (id==='s07'){ term(document.getElementById('i07'),'tests',10,190,lt,0,d); }
+
+    // b08 the unpacked extension loaded into the Edge that was already running
+    if (id==='s08'){ term(document.getElementById('i08'),'load',95,245,lt,0,d); }
+
+    // b09 the For You home feed checked card by card
+    if (id==='s09'){ term(document.getElementById('i09'),'feed',70,105,lt,0,d); }
+
+    // b10 that same home feed in the browser, every card judged, none marked
+    if (id==='s10'){ const f = Math.round(lerp(712,790,clamp(lt/(d-0.3),0,1)));
+      browser(document.getElementById('i10'), f, 2976, 1548, 1366, 790, lerp(0.72,0.76,lt/d)); }
+
+    // b11 the badge on a real card in the Latest search, held large
+    if (id==='s11'){ const im=document.getElementById('i11');
+      let f, cx, cy, s;
+      if (lt < 1.8){ f = Math.round(lerp(820,833,lt/1.8)); cx=1366; cy=790; s=lerp(0.74,0.78,lt/1.8); }
+      else { f = lt < 2.6 ? 834 : 836; const p = seg(lt,1.8,3.9);
+             cx=lerp(1366,1075,p); cy=lerp(790,660,p); s=lerp(0.78,1.52,p); }
+      browser(im, f, 2976, 1548, cx, cy, s); }
+
+    // b12 the pull request it opens, and its body with the screenshots that render
+    if (id==='s12'){ const im=document.getElementById('i12'), pw=document.getElementById('prwin');
+      const cut = lt>=3.0;
+      im.style.opacity = 1-seg(lt,2.85,3.05); pw.style.opacity = seg(lt,2.85,3.05);
+      if (!cut){ term(im,'pr',95,215,lt,0,3.0); }
+      else { const H = 1540*9432/2880; const p = lerp(0.075,0.68,seg(lt,3.35,6.7));
+        document.getElementById('prImg').style.top = (-p*H)+'px';
+        castNow = lerp(2148,2162,clamp((lt-3.0)/4.5,0,1)); } }
+
+    // b13 the deployed landing page with the product demo playing on it
+    if (id==='s13'){ const f = Math.round(lerp(2250,2470,clamp(lt/(d-0.3),0,1)));
+      browser(document.getElementById('i13'), f, 2976, 1548, 1488, 700, lerp(0.645,0.675,lt/d)); }
+
+    // b14 the two launch cuts the session generated
+    if (id==='s14'){ const f = clamp(Math.round(1+lt*30),1,240);
+      setSrc(document.getElementById('c16'), `v5/frames/launch16/${pad(f)}.jpg`);
+      setSrc(document.getElementById('c9'), `v5/frames/launch9/${pad(f)}.jpg`);
+      castNow = lerp(2236,2270,clamp(lt/d,0,1)); }
+
+    // b15 the same URL answering now, below the fold
+    if (id==='s15'){ const H = 1540*3852/2880; const p = lerp(0.40,0.63,seg(lt,0.25,d-0.2));
+      document.getElementById('lgImg').style.top = (-p*H)+'px';
+      castNow = lerp(2272,2288,clamp(lt/d,0,1)); }
+
+    // b16 close
+    if (id==='s16'){ castNow = 2291.0; mk.style.opacity = seg(lt,0.4,1.3)*(1-seg(lt,d-0.5,d)); }
+  }
+  readout(castNow);
+  sc.style.opacity = 1;
+  await Promise.all(pend.map(im => im.complete && im.naturalWidth ? null : new Promise(r => { im.onload = im.onerror = r; })));
+}
+
+// The readout is the recorded session. The clock is the cast clock, which ends at 38:11,
+// and the spend is spend-run.json, one cumulative point per minute since the prompt was
+// submitted at cast 46.4, ending at $1.2979.
+function readout(cast){
+  const el = clamp(cast, 0, 2291.0);
+  const m = clamp((cast - 46.4)/60, 0, SPEND[SPEND.length-1][0]);
+  let usd;
+  if (m >= SPEND[SPEND.length-1][0]) usd = SPEND[SPEND.length-1][1];
+  else { const i = Math.floor(m); const a = SPEND[i], b = SPEND[i+1]; usd = a[1] + (b[1]-a[1])*(m-i); }
+  document.getElementById('clock').textContent =
+    String(Math.floor(el/60)).padStart(2,'0')+':'+String(Math.floor(el%60)).padStart(2,'0');
+  document.getElementById('spend').textContent = '$'+usd.toFixed(2);
+}
+window.render = render;
+</script>
+<script src="v5/graphics/stages.js"></script>
+</body></html>

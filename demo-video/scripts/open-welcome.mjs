@@ -1,0 +1,11 @@
+import { createRequire } from 'module';
+const require = createRequire(process.env.HOME + '/.cache/adal-demo/package.json');
+const { chromium } = require('playwright');
+const b = await chromium.connectOverCDP('http://127.0.0.1:9333');
+const ctx = b.contexts()[0];
+const p = ctx.pages().find(x => /welcome/.test(x.url())) || await ctx.newPage();
+await p.goto(process.argv[2], { waitUntil: 'domcontentloaded' });
+await p.bringToFront();
+console.log('open:', p.url(), '|', await p.title());
+console.log('buttons:', (await p.locator('button').allTextContents()).slice(0, 8).join(' | '));
+await b.close().catch(() => {});

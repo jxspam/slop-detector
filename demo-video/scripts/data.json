@@ -1,0 +1,15 @@
+{
+ "launch": [
+  "Your feed is full of posts that sound like everyone and no one. Today we are launching the TypeSafe Slop Detector, a Chrome extension that has Jev judge each feed card in real time. High confidence slop gets a red LIKELY AI SLOP badge with its score, borderline cards get an amber CHECK THIS outline, and genuine human writing is left completely alone.",
+  "Nothing is ever deleted or hidden, because the point is sharper eyes, not a quieter feed. On our three card demo fixture, Jev scored blatant hustle filler at 0.97, polished engagement bait at 0.63, and a specific personal espresso story at 0.03, all in about a quarter of a second for roughly twelve hundred tokens. Watch assets/demo.mp4 to see the badges land live.",
+  "Install it from this repo, paste in your own TypeSafe API key, and browse normally. When a card glows red, read it twice. When it glows amber, trust your gut. Tell us which verdicts it gets wrong so we can make the next version smarter."
+ ],
+ "frames": {
+  "build": 608,
+  "browser": 697,
+  "pr": 495,
+  "bonus": 332,
+  "xbrowser": 1068
+ },
+ "clip": 450
+}

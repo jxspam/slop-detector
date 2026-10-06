@@ -1,0 +1,154 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Jev Slop Detector Film</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+@font-face{font-family:'Space Grotesk';font-weight:500;src:url(assets/fonts/space-grotesk-500-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-weight:600;src:url(assets/fonts/space-grotesk-600-latin.woff2) format('woff2')}
+@font-face{font-family:'JB';font-weight:500;src:url(assets/fonts/JetBrains-Mono-500-normal.ttf)}
+@font-face{font-family:'JB';font-weight:600;src:url(assets/fonts/JetBrains-Mono-600-normal.ttf)}
+:root{--pink:#FF5898;--deep:#E84D87;--ink:#16070D;--cream:#FFE4EE;--card:#fff}
+*{box-sizing:border-box;margin:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--cream);font-family:'Inter',sans-serif;color:var(--ink)}
+.scene{position:absolute;inset:0;opacity:0;overflow:hidden}
+.stage{position:absolute;left:0;top:0;width:1920px;height:930px;overflow:hidden}
+.cap{position:absolute;left:0;right:0;top:930px;height:150px;display:flex;align-items:center;justify-content:center;font:600 46px/1.15 'Space Grotesk';letter-spacing:-0.5px;text-align:center;padding:0 120px}
+.cap em{font-style:normal;color:var(--deep)}
+.win{position:absolute;background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(22,7,13,.16),0 2px 0 rgba(22,7,13,.04);overflow:hidden}
+.bar{height:44px;display:flex;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid #f3dbe5;font:500 17px 'JB';color:#9b7a88}
+.dot{width:12px;height:12px;border-radius:50%;background:#f1c9d8}
+.bar img{height:20px}
+img.fill{position:absolute;display:block}
+.stat{position:absolute;font:600 30px 'JB';color:var(--ink)}
+.stat b{color:var(--deep);font-weight:600}
+/* decision loop */
+.lrow{position:absolute;left:170px;width:1580px;height:220px}
+.lcard{position:absolute;left:0;top:10px;width:470px;height:200px;background:#fff;border-radius:16px;padding:22px 26px;font:400 21px/1.35 'Inter';box-shadow:0 10px 30px rgba(22,7,13,.08)}
+.lcard h4{font:600 22px 'Inter';margin-bottom:10px}
+.ljev{position:absolute;left:560px;top:62px;width:170px;height:96px;border-radius:18px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font:600 34px 'Space Grotesk'}
+.lp{position:absolute;left:800px;top:52px;width:260px;font:600 76px 'JB';text-align:center}
+.lout{position:absolute;left:1120px;top:56px;width:460px;height:108px;display:flex;align-items:center;font:600 30px 'Space Grotesk'}
+.arrow{position:absolute;height:4px;background:var(--pink);top:108px;transform-origin:left center}
+.badge{display:inline-block;background:#e11d48;color:#fff;font:700 24px 'Inter';letter-spacing:.5px;padding:10px 18px;border-radius:10px}
+.check{display:inline-block;border:3px dashed #f59e0b;color:#b45309;font:700 24px 'Inter';letter-spacing:.5px;padding:8px 16px;border-radius:10px}
+.untouched{color:#6b5360;font:600 30px 'Space Grotesk'}
+/* capability card */
+.capcard{position:absolute;right:90px;top:90px;width:560px;background:#fff;border-radius:22px;padding:30px 34px;box-shadow:0 30px 80px rgba(22,7,13,.2)}
+.capcard .row{display:flex;align-items:center;gap:18px}
+.capcard img{height:44px}
+.capcard h3{font:600 34px 'Space Grotesk';flex:1}
+.toggle{width:84px;height:46px;border-radius:23px;background:#e8d5dd;position:relative}
+.toggle i{position:absolute;top:5px;left:5px;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.capcard p{font:400 22px/1.4 'Inter';color:#5b4450;margin-top:18px}
+/* launch post */
+.post{padding:34px 40px;font:400 25px/1.5 'Inter'}
+.post p{margin-bottom:20px}
+.logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:360px}
+.mark{position:absolute;right:48px;bottom:40px;height:40px}
+</style></head><body>
+
+<div class="scene" id="hook"><div class="stage"><img class="fill" id="hookBefore" src="assets/scenes/hook-before.jpg"><img class="fill" id="hookAfter" src="assets/scenes/hook-after.jpg"></div><div class="cap"><span>A real-time slop detector, <em>built by AdaL</em> with Jev.</span></div></div>
+
+<div class="scene" id="xflash"><div class="stage"><img class="fill" id="xImg" src="assets/scenes/xflash.jpg"></div><div class="cap"><span>Works on a real feed.</span></div></div>
+
+<div class="scene" id="loop"><div class="stage" id="loopStage"></div><div class="cap"><span>One fast judgment. <em>Confidence decides</em> whether it acts.</span></div></div>
+
+<div class="scene" id="build"><div class="stage"><img class="fill seg" data-seg="build"></div><div class="cap"><span>We gave AdaL the idea. <em>It built the extension.</em></span></div></div>
+
+<div class="scene" id="browser"><div class="stage"><img class="fill seg" data-seg="browser"></div>
+  <div class="capcard" id="capCard"><div class="row"><img src="assets/adal3.svg"><h3>browser-use</h3><div class="toggle" id="tog"><i></i></div></div><p>Opens a real browser and checks what actually renders.</p></div>
+  <div class="cap" id="browserCap"><span>AdaL switches on its <em>browser</em> and checks the cards itself.</span></div></div>
+
+<div class="scene" id="pr"><div class="stage"><img class="fill seg" data-seg="pr"></div><div class="cap"><span>AdaL tested it and <em>opened the PR.</em></span></div></div>
+
+<div class="scene" id="prpage"><div class="stage">
+  <div class="win" style="left:260px;top:40px;width:1400px;height:860px"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">github.com/jxspam/jev-slop-detector/pull/1</span></div>
+  <div style="position:absolute;left:0;top:44px;right:0;bottom:0;overflow:hidden"><img id="prImg" src="assets/pr/conversation-full.png" style="position:absolute;left:0;top:0;width:1400px"></div></div>
+</div><div class="cap"><span>Screenshots, test results and timings, <em>attached.</em></span></div></div>
+
+<div class="scene" id="bonus"><div class="stage"><img class="fill seg" data-seg="bonus"></div><div class="cap"><span>And it made <em>the video.</em> And <em>the post.</em></span></div></div>
+
+<div class="scene" id="outputs"><div class="stage">
+  <div class="win" id="clipWin" style="left:150px;top:50px;width:600px;height:840px"><div class="bar"><img src="assets/adal3.svg"><span>demo.mp4</span></div><img id="clipImg" style="position:absolute;left:0;top:44px;width:600px"></div>
+  <div class="win" id="postWin" style="left:820px;top:50px;width:950px;height:840px"><div class="bar"><img src="assets/adal3.svg"><span>LAUNCH.md</span></div><div class="post" id="post"></div></div>
+</div><div class="cap"><span>Made by AdaL, <em>from the verified run.</em></span></div></div>
+
+<div class="scene" id="close"><div class="stage"><img class="fill" id="closeImg" src="assets/scenes/hook-after.jpg"></div><div class="cap"><span>You bring the idea. <em>AdaL does the rest.</em></span></div></div>
+
+<div class="scene" id="logo" style="background:#fff"><img class="logo" src="assets/adal1.svg"></div>
+
+<script>
+const T = {hook:[0,8], xflash:[8,10.2], loop:[10.2,23], build:[23,43.27], browser:[43.27,66.5], pr:[66.5,83], prpage:[83,89.5], bonus:[89.5,100.57], outputs:[100.57,109], close:[109,114], logo:[114,117.5]};
+window.T = T; window.END = 117.5;
+let DATA;
+const ease = x => x<0?0:x>1?1:(1-Math.cos(Math.PI*x))/2;
+const lerp = (a,b,x) => a+(b-a)*x;
+const seg = (t,a,b) => ease((t-a)/(b-a));
+// place a 2880x1562 page frame into the 1920x930 stage with a camera (cx, cy in source px, scale)
+function cam(img, sw, sh, cx, cy, s){ const w=sw*s, h=sh*s; img.style.width=w+'px'; img.style.height=h+'px'; img.style.left=(960-cx*s)+'px'; img.style.top=(465-cy*s)+'px'; }
+function buildLoop(){
+  const rows = [
+    ['Mindset Daily','Success is a mindset! Wake up, grind hard, stay humble, and manifest your dreams! #motivation #grind','0.97','<span class="badge">LIKELY AI SLOP 97%</span>'],
+    ['BrightHome Studio','Small living room? These 5 clever storage ideas can make the space feel twice as big. Number 3 surprised even us!','0.63','<span class="check">CHECK THIS</span>'],
+    ['Lena Bauer','My espresso tasted sour for weeks. My tap water in Hamburg tested at 14 °dH. Switched to a 50/50 mix last Tuesday.','0.03','<span class="untouched">Untouched</span>']];
+  const st = document.getElementById('loopStage');
+  st.innerHTML = rows.map((r,i)=>`<div class="lrow" id="lr${i}" style="top:${70+i*270}px"><div class="lcard"><h4>${r[0]}</h4>${r[1]}</div><div class="arrow" id="la${i}" style="left:480px;width:70px"></div><div class="ljev">Jev</div><div class="arrow" id="lb${i}" style="left:740px;width:50px"></div><div class="lp" id="lp${i}" data-v="${r[2]}">0.00</div><div class="arrow" id="lc${i}" style="left:1065px;width:45px"></div><div class="lout" id="lo${i}">${r[3]}</div></div>`).join('')
+    + `<div class="stat" style="left:170px;top:880px;font-size:26px">1 request · 3 cards · <b>220 ms</b></div>`;
+}
+const imgCache = {};
+function setSrc(img, src){ if (img.getAttribute('src') !== src) img.setAttribute('src', src); }
+async function render(t){
+  if (!DATA){ DATA = await (await fetch('data.json')).json(); buildLoop(); document.getElementById('post').innerHTML = DATA.launch.map(p=>`<p>${p.replace(/\*\*/g,'')}</p>`).join(''); }
+  const pend = [];
+  for (const [id,[a,b]] of Object.entries(T)){
+    const el = document.getElementById(id);
+    const on = t>=a && t<b;
+    el.style.opacity = on ? 1 : 0;
+    if (!on) continue;
+    const lt = t-a, d = b-a;
+    if (id==='hook'){
+      const be=document.getElementById('hookBefore'), af=document.getElementById('hookAfter');
+      af.style.opacity = seg(lt,2.2,2.7);
+      // start wide on the feed, push into the slop badge, drift down to the clean card
+      let cx=1334, cy=560, s=0.86;
+      const p1=seg(lt,2.8,4.8), p2=seg(lt,5.4,7.4);
+      cx=lerp(cx,1560,p1); cy=lerp(cy,200,p1); s=lerp(s,1.35,p1);
+      cx=lerp(cx,1334,p2); cy=lerp(cy,860,p2); s=lerp(s,1.05,p2);
+      cam(be,2880,1562,cx,cy,s); cam(af,2880,1562,cx,cy,s);
+    }
+    if (id==='xflash'){ const im=document.getElementById('xImg'); const p=seg(lt,0.2,1.8); cam(im,2560,1600,lerp(1280,1494,p),lerp(800,305,p),lerp(0.62,1.3,p)); }
+    if (id==='loop'){
+      for (let i=0;i<3;i++){ const o=i*2.4;
+        document.getElementById('lr'+i).style.opacity = seg(lt,0.2+o,0.8+o);
+        document.getElementById('la'+i).style.transform=`scaleX(${seg(lt,0.9+o,1.3+o)})`;
+        document.getElementById('lb'+i).style.transform=`scaleX(${seg(lt,1.4+o,1.7+o)})`;
+        const lp=document.getElementById('lp'+i), v=parseFloat(lp.dataset.v), q=seg(lt,1.5+o,2.2+o);
+        lp.textContent=(v*q).toFixed(2); lp.style.opacity=q>0?1:0; lp.style.color = i===0?'#e11d48':i===1?'#b45309':'#16070D';
+        document.getElementById('lc'+i).style.transform=`scaleX(${seg(lt,2.2+o,2.5+o)})`;
+        document.getElementById('lo'+i).style.opacity=seg(lt,2.4+o,2.8+o);
+      }
+    }
+    if (['build','browser','pr','bonus'].includes(id)){
+      const im=el.querySelector('img.seg'), n=DATA.frames[id], f=Math.min(n-1,Math.floor(lt*30));
+      setSrc(im, `out/segs/${id}/frames/${String(f).padStart(5,'0')}.png`); pend.push(im);
+      // letterbox 2560x1440 frames into the 1920x930 stage
+      const s=930/1440; im.style.height='930px'; im.style.width=(2560*s)+'px'; im.style.left=((1920-2560*s)/2)+'px'; im.style.top='0px';
+      if (id==='browser'){
+        const cc=document.getElementById('capCard'); const show=seg(lt,2.6,3.0)*(1-seg(lt,6.6,7.0));
+        cc.style.opacity=show; cc.style.transform=`translateY(${(1-seg(lt,2.6,3.0))*20}px)`;
+        const on=seg(lt,4.2,4.45), tg=document.getElementById('tog');
+        tg.style.background = on>0.5?'#FF5898':'#e8d5dd'; tg.firstElementChild.style.left=(5+on*38)+'px';
+        document.getElementById('browserCap').firstElementChild.innerHTML = lt<11 ? 'AdaL switches on its <em>browser</em> and checks the cards itself.' : 'Three cards. <em>Three confidence states.</em> Nothing removed.';
+      }
+    }
+    if (id==='prpage'){ const im=document.getElementById('prImg'); const H=1400*7234/2880; const f=lerp(lerp(0,0.472,seg(lt,1.4,2.6)),0.785,seg(lt,4.0,5.0)); im.style.top=(-f*H)+'px'; }
+    if (id==='outputs'){
+      const im=document.getElementById('clipImg'); const f=Math.min(DATA.clip, 1+Math.floor((lt+4.5)*30)); setSrc(im,`assets/scenes/adalclip/${String(f).padStart(5,'0')}.jpg`); pend.push(im);
+      document.getElementById('clipWin').style.opacity=seg(lt,0,0.5); document.getElementById('postWin').style.opacity=seg(lt,0.4,0.9);
+    }
+    if (id==='close'){ const im=document.getElementById('closeImg'); const p=seg(lt,0,d); cam(im,2880,1562,lerp(1560,1334,p),lerp(220,560,p),lerp(1.3,0.9,p)); }
+  }
+  // soft crossfade: fade each scene in over its first 0.25s
+  await Promise.all(pend.map(im => im.complete && im.naturalWidth ? null : new Promise(r => { im.onload = im.onerror = r; })));
+}
+window.render = render;
+</script></body></html>

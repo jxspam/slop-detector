@@ -1,0 +1,145 @@
+{
+ "cwd": "/Users/jaxkoh/adal/videos/jev-slop-detector/workspace",
+ "cols": 100,
+ "rows": 30,
+ "command": [
+  "adal",
+  "--yolo"
+ ],
+ "env": {
+  "ADAL_DEV_MODE": null
+ },
+ "browser": {
+  "port": 9333,
+  "interval": 250,
+  "dir": "browser"
+ },
+ "steps": [
+  {
+   "idle": 5000,
+   "timeout": 90000
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "snapshot": "ready"
+  },
+  {
+   "sleep": 800
+  },
+  {
+   "mark": "caps-typing"
+  },
+  {
+   "type": "/capabilities",
+   "cps": 18
+  },
+  {
+   "press": "enter",
+   "before": 400
+  },
+  {
+   "sleep": 1200
+  },
+  {
+   "mark": "caps-menu"
+  },
+  {
+   "snapshot": "caps-menu"
+  },
+  {
+   "press": "down",
+   "before": 500
+  },
+  {
+   "sleep": 500
+  },
+  {
+   "press": "space"
+  },
+  {
+   "mark": "caps-on"
+  },
+  {
+   "sleep": 1400
+  },
+  {
+   "snapshot": "caps-on"
+  },
+  {
+   "press": "esc"
+  },
+  {
+   "sleep": 1000
+  },
+  {
+   "mark": "b-typing"
+  },
+  {
+   "type": "The slop detector extension is installed in your browser. Use your browser tools to open X, search #mindset #success, scroll the latest posts, and tell me which ones it flagged.",
+   "cps": 22
+  },
+  {
+   "press": "enter",
+   "before": 500
+  },
+  {
+   "mark": "b-submitted"
+  },
+  {
+   "idle": 90000,
+   "timeout": 1800000
+  },
+  {
+   "mark": "b-done"
+  },
+  {
+   "snapshot": "b-done"
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Want me to|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "b-yes-typing"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "b-yes-submitted"
+    },
+    {
+     "idle": 120000,
+     "timeout": 1800000
+    }
+   ]
+  },
+  {
+   "sleep": 2500
+  },
+  {
+   "mark": "end"
+  },
+  {
+   "press": "ctrl c"
+  },
+  {
+   "sleep": 700
+  },
+  {
+   "press": "ctrl c"
+  },
+  {
+   "sleep": 1200
+  }
+ ]
+}

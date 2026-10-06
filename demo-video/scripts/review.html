@@ -1,0 +1,139 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Jev Slop Detector Footage</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#fff;--ink:#16070D;--pink:#FF5898;--deep:#E84D87;--line:#f1d3df;--muted:#8a6f7a;--term:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#16070D;--ink:#FFE4EE;--line:#3a2530;--muted:#b89aa6;--term:#21131A}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,Inter,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:32px 16px 80px}
+h1{font-size:30px;margin:0 0 28px}h2{font-size:20px;margin:48px 0 14px;padding-top:14px;border-top:1px solid var(--line)}
+h3{font-size:15px;margin:18px 0 8px;color:var(--deep)}
+a{color:var(--deep)}.muted{color:var(--muted)}
+table{border-collapse:collapse;width:100%;max-width:560px}td{padding:7px 0;border-bottom:1px solid var(--line)}td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+pre{background:var(--term);border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font:12px/1.35 "JetBrains Mono",Menlo,monospace;max-height:520px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+img,video{width:100%;border:1px solid var(--line);border-radius:10px;display:block}
+.tall{max-height:900px;overflow:auto;border:1px solid var(--line);border-radius:10px}.tall img{border:0;border-radius:0}
+.post{white-space:pre-wrap;background:var(--term);border:1px solid var(--line);border-radius:10px;padding:16px;max-width:720px}
+ol{padding-left:20px}
+</style></head><body><main>
+<h1>Jev Slop Detector Footage</h1>
+
+<h2>Numbers</h2>
+<table><tr><td>Model</td><td>Muse Spark 1.3</td></tr><tr><td>Tests</td><td>6 / 6 pass, live Jev</td></tr><tr><td>Slop card</td><td>0.97, LIKELY AI SLOP</td></tr><tr><td>Ambiguous card</td><td>0.63, CHECK THIS</td></tr><tr><td>Clean card</td><td>0.03, untouched</td></tr><tr><td>Jev batch latency</td><td>220 to 285 ms</td></tr><tr><td>Tokens per batch</td><td>~1,160 in, 61 out</td></tr><tr><td>Cost per feed (rehearsal)</td><td>$0.00008</td></tr><tr><td>Build time (prompt 1)</td><td>13 min 27 s</td></tr><tr><td>Proof + PR (prompt 2)</td><td>10 min 34 s</td></tr><tr><td>Clip + post (prompt 3)</td><td>4 min 36 s</td></tr></table>
+
+<h2>Recorded take</h2>
+<h3>Prompt 1 · build + tests</h3><pre>✔ Bash (npm run slop-check 2&gt;&amp;1 | tail - ... [49 more chars] ...  ===; git --no-pager diff --stat) ▄
+⎿ ---                                                                                               
+  13 lines ...                                                                                      
+                                                                                                    
+✔ Bash (git --no-pager status --short)                                                              
+⎿ M README.md                                                                                       
+  11 lines ...                                                                                      
+                                                                                                    
+  Thought...                                                                                        
+                                                                                                    
+• Done — ad blocker is now a real-time AI slop detector. 6/6 tests pass with the real Jev key       
+  (jev-1.13.0, ~220ms):                                                                             
+                                                                                                    
+   - Jev judges each card: one slop_i noul question per card, same one-request batch pattern. High  
+   p≥0.8 → red outline + LIKELY AI SLOP xx% badge with score, medium p≥0.5 → amber dashed CHECK     
+   THIS outline, low stays untouched.                                                               
+   - Never removes content: element.remove() / pop animation gone; badges marked data-tsab so       
+   they&#x27;re never re-judged. A test asserts no .remove() in content.js.                              
+   - Fixture `test/slop-fixture.html`: 3-card feed — slop / ambiguous / clean.                      
+   - Tests `npm run slop-check`: request shape, parsing, band boundaries, no-removal check + live   
+   Jev assert: slop 0.97 high, ambiguous 0.62 medium, clean 0.03 low.                               
+   - Popup + manifest updated to high/medium band sliders and Slop Detector branding; README        
+   rewritten; harness/relay point at the new fixture.                                               
+                                                                                                    
+                                                                                                    
+────────────────────────────────────────────────────────────────────────────────────────────────────
+? for quick reference                                                                               
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Muse Spark 1.3 medium (8%)                                                          workspace (main)
+                                                                           YOLO (shift+tab to cycle)</pre>
+<h3>Prompt 2 · proof + PR</h3><pre>  12 lines ...                                                                                      
+  Created: (+32).                                                                                   
+                                                                                                    
+✔ Bash (gh pr create --base main --head  ... [160 more chars] ... _slop-detector.md 2&gt;&amp;1 | tail -5) 
+⎿ https://github.com/jxspam/jev-slop-detector/pull/1                                                
+                                                                                                    
+✔ Bash (pkill -f &quot;http.server 8787&quot; 2&gt;/de ... [26 more chars] ... ay.mjs&quot; 2&gt;/dev/null; echo cleaned)
+⎿ cleaned                                                                                           
+                                                                                                    
+• Checked the fixture in real Chrome via the harness + live relay — all three cards judged exactly  
+  as designed.                                                                                      
+                                                                                                    
+  Before: plain 3-card feed. After: slop card has red outline + LIKELY AI SLOP 97%,                 
+  ambiguous has amber dashed CHECK THIS, clean is untouched, toast reads `2 cards flagged · 3       
+  checked · 265 ms`. All 3 cards verified still in the DOM.                                         
+                                                                                                    
+  Pushed branch slop-detector and opened [PR                                                        
+  #1](https://github.com/jxspam/jev-slop-detector/pull/1) with before/after screenshots, test       
+  results, and measured numbers:                                                                    
+   - Tests: 6/6 pass, live jev-1.13.0 → slop 0.97 high / ambiguous 0.63 medium / clean 0.03 low     
+   - Latency: ~220–285ms per 3-card batch (+600ms debounce)                                         
+   - Cost: ~1,155–1,172 input + 61 output tokens per batch (no price math — TypeSafe pricing isn&#x27;t  
+   in the repo)                                                                                     
+                                                                                                    
+                                                                                                    
+────────────────────────────────────────────────────────────────────────────────────────────────────
+? for quick reference                                                                               
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Muse Spark 1.3 medium (10%)                                             workspace (slop-detector #1)
+                                                                           YOLO (shift+tab to cycle)</pre>
+<h3>Prompt 3 · demo clip + launch post</h3><pre>⎿ Your feed is full of posts that sound like everyone and no one. Today we are launching the TypeS ▄
+                                                                                                    
+  Nothing is ever deleted or hidden, because the point is sharper eyes, not a quieter feed. On our  
+                                                                                                    
+  Install it from this repo, paste in your own TypeSafe API key, and browse normally. When a card   
+  Created: (+5).                                                                                    
+                                                                                                    
+✔ Bash (grep -c &quot;—&quot; LAUNCH.md || echo &quot;n ... [171 more chars] ... 2.png &amp;&amp; ls -la /tmp/demo_t*.png) 
+⎿ 0                                                                                                 
+  no-em-dash                                                                                        
+  -rw-r--r--@ 1 jaxkoh  wheel  188683 Sep 21 19:05 /tmp/demo_t12.png                                
+  -rw-r--r--@ 1 jaxkoh  wheel  151057 Sep 21 19:05 /tmp/demo_t3.png                                 
+                                                                                                    
+✔ Read (/tmp/demo_t3.png)                                                                           
+⎿ Read image (147.5KB)                                                                              
+                                                                                                    
+✔ Read (/tmp/demo_t12.png)                                                                          
+⎿ Read image (184.3KB)                                                                              
+                                                                                                    
+  Thought...                                                                                        
+                                                                                                    
+• Done. assets/demo.mp4 is a 15 second clip (6s before, fade, 9s after with badges), verified       
+  frame by frame, and LAUNCH.md is three paragraphs with no em dashes.                              
+                                                                                                    
+                                                                                                    
+────────────────────────────────────────────────────────────────────────────────────────────────────
+? for quick reference                                                                               
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Muse Spark 1.3 medium (11%)                                             workspace (slop-detector #1)
+                                                                           YOLO (shift+tab to cycle)</pre>
+
+<h2>PR #1</h2>
+<p><a href="https://github.com/jxspam/jev-slop-detector/pull/1">github.com/jxspam/jev-slop-detector/pull/1</a></p>
+<div class="tall"><img src="assets/pr/conversation-full.png"></div>
+
+<h2>AdaL's own demo clip</h2>
+<video src="workspace/assets/demo.mp4" controls muted loop playsinline style="max-width:820px"></video>
+
+<h2>AdaL's launch post</h2>
+<div class="post">Your feed is full of posts that sound like everyone and no one. Today we are launching the TypeSafe Slop Detector, a Chrome extension that has Jev judge each feed card in real time. High confidence slop gets a red LIKELY AI SLOP badge with its score, borderline cards get an amber CHECK THIS outline, and genuine human writing is left completely alone.
+
+Nothing is ever deleted or hidden, because the point is sharper eyes, not a quieter feed. On our three card demo fixture, Jev scored blatant hustle filler at 0.97, polished engagement bait at 0.63, and a specific personal espresso story at 0.03, all in about a quarter of a second for roughly twelve hundred tokens. Watch assets/demo.mp4 to see the badges land live.
+
+Install it from this repo, paste in your own TypeSafe API key, and browse normally. When a card glows red, read it twice. When it glows amber, trust your gut. Tell us which verdicts it gets wrong so we can make the next version smarter.
+</div>
+
+<h2>Browser take</h2>
+<div class="grid"><img src="takes/20260921-192754/browser/00001.jpg" loading="lazy"><img src="takes/20260921-192754/browser/00002.jpg" loading="lazy"><img src="takes/20260921-192754/browser/00003.jpg" loading="lazy"><img src="takes/20260921-192754/browser/00004.jpg" loading="lazy"><img src="takes/20260921-192754/browser/00005.jpg" loading="lazy"><img src="takes/20260921-192754/browser/00006.jpg" loading="lazy"></div>
+
+<h2>Rehearsal</h2>
+<div class="grid"><img src="dryrun/assets/after.png"><img src="rehearsals/demo-sheet.png"></div>
+
+<h2>Next</h2>
+<ol><li>Browser take with AdaL's visible Chrome</li><li>Hook capture</li><li>2:00 cut, music, sound effects</li><li>Your review, then Li's thread</li></ol>
+</main></body></html>

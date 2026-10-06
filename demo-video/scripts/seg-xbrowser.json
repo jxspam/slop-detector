@@ -1,0 +1,180 @@
+{
+ "name": "xbrowser",
+ "cast": "takes/20260921-195421/take.cast",
+ "fps": 30,
+ "stage": [
+  1280,
+  720
+ ],
+ "fontSize": 19,
+ "title": "adal",
+ "colorMap": {
+  "#fff5f8": "#ffffff"
+ },
+ "hold": 1.8,
+ "camTau": 0.35,
+ "gifWidth": 480,
+ "panels": {
+  "browser": {
+   "kind": "frames",
+   "dir": "takes/20260921-195421/browser",
+   "size": [
+    1440,
+    779
+   ]
+  }
+ },
+ "trim": {
+  "from": "caps-typing",
+  "fromOffset": -0.6,
+  "to": "b-done",
+  "toOffset": -88
+ },
+ "speed": [
+  {
+   "from": "b-typing",
+   "to": "b-submitted",
+   "x": 4
+  },
+  {
+   "from": "b-submitted",
+   "fromOffset": 1.0,
+   "to": "browser:first",
+   "toOffset": -0.5,
+   "x": 14
+  },
+  {
+   "from": "browser:first",
+   "fromOffset": 1.5,
+   "to": 138.0,
+   "x": 20
+  },
+  {
+   "from": 141.5,
+   "to": 152.0,
+   "x": 5
+  },
+  {
+   "from": 152.0,
+   "to": 160.8,
+   "x": 10
+  },
+  {
+   "from": 163.5,
+   "to": "b-done",
+   "toOffset": -89,
+   "x": 16
+  }
+ ],
+ "layout": [
+  {
+   "at": "caps-typing",
+   "mode": "solo"
+  },
+  {
+   "at": "browser:first",
+   "offset": -0.4,
+   "mode": "split",
+   "panel": "browser",
+   "split": 0.34
+  }
+ ],
+ "camera": [
+  {
+   "at": "caps-typing",
+   "offset": -0.6,
+   "target": {
+    "text": "^\u2500{20}",
+    "above": 4,
+    "below": 0,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.45
+  },
+  {
+   "at": "caps-menu",
+   "offset": 0.1,
+   "target": {
+    "text": "browser-use",
+    "above": 3,
+    "below": 3,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.5
+  },
+  {
+   "at": "b-typing",
+   "offset": -0.2,
+   "target": {
+    "text": "^\u2500{20}",
+    "above": 4,
+    "below": 0,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.45
+  },
+  {
+   "at": "b-submitted",
+   "offset": 1.0,
+   "view": "full"
+  },
+  {
+   "at": "browser:first",
+   "offset": 0.6,
+   "target": {
+    "panel": "browser",
+    "region": [
+     0.15,
+     0,
+     0.7,
+     0.6
+    ]
+   },
+   "zoom": 1.4
+  },
+  {
+   "at": 138.8,
+   "target": {
+    "panel": "browser",
+    "region": [
+     0.25,
+     0.55,
+     0.72,
+     1.0
+    ]
+   },
+   "zoom": 1.7
+  },
+  {
+   "at": 150.0,
+   "view": "full"
+  },
+  {
+   "at": 161.0,
+   "target": {
+    "panel": "browser",
+    "region": [
+     0.2,
+     0.3,
+     0.9,
+     1.0
+    ]
+   },
+   "zoom": 1.4
+  },
+  {
+   "at": 163.5,
+   "view": "full"
+  }
+ ],
+ "cursor": []
+}

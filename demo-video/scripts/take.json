@@ -1,0 +1,284 @@
+{
+ "cwd": "/Users/jaxkoh/adal/videos/jev-slop-detector/workspace",
+ "cols": 100,
+ "rows": 30,
+ "command": [
+  "adal",
+  "--yolo"
+ ],
+ "env": {
+  "ADAL_DEV_MODE": null
+ },
+ "browser": {
+  "port": 9222,
+  "interval": 500,
+  "dir": "browser"
+ },
+ "steps": [
+  {
+   "idle": 5000,
+   "timeout": 90000
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "snapshot": "ready"
+  },
+  {
+   "sleep": 800
+  },
+  {
+   "mark": "p1-typing"
+  },
+  {
+   "type": "Turn this ad blocker into a real-time AI slop detector. Jev judges each feed card: high confidence gets a LIKELY AI SLOP badge with the score, medium gets a CHECK THIS outline, low stays untouched. Never remove content. Add a three-card fixture feed (slop, ambiguous, clean) and unit tests, and run them with the real Jev key.",
+   "cps": 22
+  },
+  {
+   "press": "enter",
+   "before": 500
+  },
+  {
+   "mark": "p1-submitted"
+  },
+  {
+   "idle": 180000,
+   "timeout": 3600000
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Should I (go|proceed|start)|Want me to|Go ahead\\?|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "p1-yes-typing1"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "p1-yes-submitted1"
+    },
+    {
+     "idle": 180000,
+     "timeout": 3600000
+    }
+   ]
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Should I (go|proceed|start)|Want me to|Go ahead\\?|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "p1-yes-typing2"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "p1-yes-submitted2"
+    },
+    {
+     "idle": 180000,
+     "timeout": 3600000
+    }
+   ]
+  },
+  {
+   "mark": "p1-done"
+  },
+  {
+   "snapshot": "p1-done"
+  },
+  {
+   "sleep": 2000
+  },
+  {
+   "mark": "p2-typing"
+  },
+  {
+   "type": "Open the fixture in the browser and check the three cards yourself. Save before and after screenshots, then push a branch and open a PR with the screenshots, test results, and measured latency and cost.",
+   "cps": 22
+  },
+  {
+   "press": "enter",
+   "before": 500
+  },
+  {
+   "mark": "p2-submitted"
+  },
+  {
+   "idle": 180000,
+   "timeout": 3600000
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Should I (go|proceed|start)|Want me to|Go ahead\\?|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "p2-yes-typing1"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "p2-yes-submitted1"
+    },
+    {
+     "idle": 180000,
+     "timeout": 3600000
+    }
+   ]
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Should I (go|proceed|start)|Want me to|Go ahead\\?|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "p2-yes-typing2"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "p2-yes-submitted2"
+    },
+    {
+     "idle": 180000,
+     "timeout": 3600000
+    }
+   ]
+  },
+  {
+   "mark": "p2-done"
+  },
+  {
+   "snapshot": "p2-done"
+  },
+  {
+   "sleep": 2000
+  },
+  {
+   "mark": "p3-typing"
+  },
+  {
+   "type": "Now make a 15 second demo clip of it and write a three-paragraph launch post in LAUNCH.md. No em dashes.",
+   "cps": 22
+  },
+  {
+   "press": "enter",
+   "before": 500
+  },
+  {
+   "mark": "p3-submitted"
+  },
+  {
+   "idle": 180000,
+   "timeout": 3600000
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Should I (go|proceed|start)|Want me to|Go ahead\\?|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "p3-yes-typing1"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "p3-yes-submitted1"
+    },
+    {
+     "idle": 180000,
+     "timeout": 3600000
+    }
+   ]
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Should I (go|proceed|start)|Want me to|Go ahead\\?|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "p3-yes-typing2"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "p3-yes-submitted2"
+    },
+    {
+     "idle": 180000,
+     "timeout": 3600000
+    }
+   ]
+  },
+  {
+   "mark": "p3-done"
+  },
+  {
+   "snapshot": "p3-done"
+  },
+  {
+   "sleep": 2500
+  },
+  {
+   "mark": "end"
+  },
+  {
+   "press": "ctrl c"
+  },
+  {
+   "sleep": 700
+  },
+  {
+   "press": "ctrl c"
+  },
+  {
+   "sleep": 1200
+  }
+ ]
+}

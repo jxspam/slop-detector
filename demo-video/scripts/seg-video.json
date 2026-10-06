@@ -1,0 +1,87 @@
+{
+ "cast": "takes/20260921-201431/take.cast",
+ "fps": 30,
+ "stage": [
+  1280,
+  720
+ ],
+ "fontSize": 19,
+ "title": "adal",
+ "colorMap": {
+  "#fff5f8": "#ffffff"
+ },
+ "hold": 1.6,
+ "gifWidth": 480,
+ "camTau": 0.35,
+ "name": "video",
+ "trim": {
+  "from": "caps-typing",
+  "fromOffset": -0.6,
+  "to": "v-done",
+  "toOffset": -177
+ },
+ "speed": [
+  {
+   "from": "v-typing",
+   "to": "v-submitted",
+   "x": 4
+  },
+  {
+   "from": "v-submitted",
+   "fromOffset": 1.0,
+   "to": "v-done",
+   "toOffset": -179,
+   "x": 190
+  }
+ ],
+ "camera": [
+  {
+   "at": "caps-typing",
+   "offset": -0.6,
+   "target": {
+    "text": "^\u2500{20}",
+    "above": 4,
+    "below": 0,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.45
+  },
+  {
+   "at": "caps-menu",
+   "offset": 0.1,
+   "target": {
+    "text": "video - Use",
+    "above": 4,
+    "below": 3,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.5
+  },
+  {
+   "at": "v-typing",
+   "offset": -0.2,
+   "target": {
+    "text": "^\u2500{20}",
+    "above": 4,
+    "below": 0,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.45
+  },
+  {
+   "at": "v-submitted",
+   "offset": 1.0,
+   "view": "full"
+  }
+ ],
+ "cursor": []
+}

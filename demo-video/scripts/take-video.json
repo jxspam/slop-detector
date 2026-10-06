@@ -1,0 +1,148 @@
+{
+ "cwd": "/Users/jaxkoh/adal/videos/jev-slop-detector/workspace",
+ "cols": 100,
+ "rows": 30,
+ "command": [
+  "adal",
+  "--yolo"
+ ],
+ "env": {
+  "ADAL_DEV_MODE": null
+ },
+ "steps": [
+  {
+   "idle": 5000,
+   "timeout": 90000
+  },
+  {
+   "mark": "ready"
+  },
+  {
+   "snapshot": "ready"
+  },
+  {
+   "sleep": 800
+  },
+  {
+   "mark": "caps-typing"
+  },
+  {
+   "type": "/capabilities",
+   "cps": 18
+  },
+  {
+   "press": "enter",
+   "before": 400
+  },
+  {
+   "sleep": 1200
+  },
+  {
+   "mark": "caps-menu"
+  },
+  {
+   "snapshot": "caps-menu"
+  },
+  {
+   "press": "down",
+   "before": 400
+  },
+  {
+   "press": "down",
+   "before": 350
+  },
+  {
+   "press": "down",
+   "before": 350
+  },
+  {
+   "sleep": 500
+  },
+  {
+   "press": "space"
+  },
+  {
+   "mark": "caps-on"
+  },
+  {
+   "sleep": 1400
+  },
+  {
+   "snapshot": "caps-on"
+  },
+  {
+   "press": "esc"
+  },
+  {
+   "sleep": 1000
+  },
+  {
+   "mark": "v-typing"
+  },
+  {
+   "type": "Make a 15 second launch clip for the slop detector from assets/x-feed-recording.mp4. Open cold on the X feed, snap-zoom onto the LIKELY AI SLOP 80% badge, bold kinetic captions, fast cuts on the beat, end on \"Spot the slop.\" Punchy, not a slideshow. Save it as assets/launch-clip.mp4.",
+   "cps": 22
+  },
+  {
+   "press": "enter",
+   "before": 500
+  },
+  {
+   "mark": "v-submitted"
+  },
+  {
+   "idle": 180000,
+   "timeout": 3600000
+  },
+  {
+   "mark": "v-done"
+  },
+  {
+   "snapshot": "v-done"
+  },
+  {
+   "ifScreen": "Proceed\\?|Shall I|Want me to|\\(y/n\\)",
+   "steps": [
+    {
+     "sleep": 1500
+    },
+    {
+     "mark": "v-yes-typing"
+    },
+    {
+     "type": "Yes, go ahead.",
+     "cps": 22
+    },
+    {
+     "press": "enter",
+     "before": 400
+    },
+    {
+     "mark": "v-yes-submitted"
+    },
+    {
+     "idle": 120000,
+     "timeout": 1800000
+    }
+   ]
+  },
+  {
+   "sleep": 2500
+  },
+  {
+   "mark": "end"
+  },
+  {
+   "press": "ctrl c"
+  },
+  {
+   "sleep": 700
+  },
+  {
+   "press": "ctrl c"
+  },
+  {
+   "sleep": 1200
+  }
+ ]
+}

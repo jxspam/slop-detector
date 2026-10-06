@@ -1,0 +1,59 @@
+{
+ "cast": "takes/20260921-183927/take.cast",
+ "fps": 30,
+ "stage": [
+  1280,
+  720
+ ],
+ "fontSize": 19,
+ "title": "adal",
+ "colorMap": {
+  "#fff5f8": "#ffffff"
+ },
+ "hold": 1.6,
+ "gifWidth": 480,
+ "camTau": 0.35,
+ "name": "pr",
+ "trim": {
+  "from": "p2-typing",
+  "fromOffset": -0.6,
+  "to": "p2-done",
+  "toOffset": -177
+ },
+ "speed": [
+  {
+   "from": "p2-typing",
+   "to": "p2-submitted",
+   "x": 3
+  },
+  {
+   "from": "p2-submitted",
+   "fromOffset": 1.0,
+   "to": "p2-done",
+   "toOffset": -179,
+   "x": 80
+  }
+ ],
+ "camera": [
+  {
+   "at": "p2-typing",
+   "offset": -0.6,
+   "target": {
+    "text": "^\u2500{20}",
+    "above": 4,
+    "below": 0,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.45
+  },
+  {
+   "at": "p2-submitted",
+   "offset": 1.2,
+   "view": "full"
+  }
+ ],
+ "cursor": []
+}

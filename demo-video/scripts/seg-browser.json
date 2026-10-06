@@ -1,0 +1,136 @@
+{
+ "name": "browser",
+ "cast": "takes/20260921-192754/take.cast",
+ "fps": 30,
+ "stage": [
+  1280,
+  720
+ ],
+ "fontSize": 19,
+ "title": "adal",
+ "colorMap": {
+  "#fff5f8": "#ffffff"
+ },
+ "hold": 2.0,
+ "camTau": 0.35,
+ "gifWidth": 480,
+ "panels": {
+  "browser": {
+   "kind": "frames",
+   "dir": "takes/20260921-192754/browser",
+   "size": [
+    1440,
+    781
+   ]
+  }
+ },
+ "trim": {
+  "from": "caps-typing",
+  "fromOffset": -0.6,
+  "to": "b-done",
+  "toOffset": -116
+ },
+ "speed": [
+  {
+   "from": "b-typing",
+   "to": "b-submitted",
+   "x": 3
+  },
+  {
+   "from": "b-submitted",
+   "fromOffset": 1.0,
+   "to": "browser:first",
+   "toOffset": -0.6,
+   "x": 14
+  },
+  {
+   "from": "browser:first",
+   "fromOffset": 4.0,
+   "to": "b-done",
+   "toOffset": -117,
+   "x": 14
+  }
+ ],
+ "layout": [
+  {
+   "at": "caps-typing",
+   "mode": "solo"
+  },
+  {
+   "at": "browser:first",
+   "offset": -0.4,
+   "mode": "split",
+   "panel": "browser",
+   "split": 0.42
+  }
+ ],
+ "camera": [
+  {
+   "at": "caps-typing",
+   "offset": -0.6,
+   "target": {
+    "text": "^\u2500{20}",
+    "above": 4,
+    "below": 0,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.45
+  },
+  {
+   "at": "caps-menu",
+   "offset": 0.1,
+   "target": {
+    "text": "browser-use",
+    "above": 3,
+    "below": 3,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.5
+  },
+  {
+   "at": "b-typing",
+   "offset": -0.2,
+   "target": {
+    "text": "^\u2500{20}",
+    "above": 4,
+    "below": 0,
+    "cols": [
+     -2,
+     100
+    ]
+   },
+   "zoom": 1.45
+  },
+  {
+   "at": "b-submitted",
+   "offset": 1.0,
+   "view": "full"
+  },
+  {
+   "at": "browser:first",
+   "offset": 1.2,
+   "target": {
+    "panel": "browser",
+    "region": [
+     0.2,
+     0,
+     0.8,
+     0.75
+    ]
+   },
+   "zoom": 1.35
+  },
+  {
+   "at": "browser:first",
+   "offset": 5.0,
+   "view": "full"
+  }
+ ],
+ "cursor": []
+}

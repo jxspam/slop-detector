@@ -1,0 +1,193 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:SG;src:url(assets/space-grotesk-600-latin.woff2);font-weight:600}
+@font-face{font-family:SG;src:url(assets/space-grotesk-500-latin.woff2);font-weight:500}
+@font-face{font-family:JB;src:url(assets/jetbrains-mono-500-latin.woff2);font-weight:500}
+:root{--pink:#FF5898;--deep:#E84D87;--ink:#0A0407;--cream:#FFE4EE}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--ink)}
+#bg{position:absolute;inset:0}
+#stage{position:absolute;inset:0;transform-origin:390px 465px}
+.scene{position:absolute;inset:0;display:none}
+#logo{position:absolute;left:50%;top:0;width:560px;transform-origin:center center}
+#logo img{width:100%;display:block}
+.card{position:absolute;top:330px;width:480px;height:270px;border-radius:26px;
+  background:linear-gradient(160deg,rgba(40,14,26,.92),rgba(18,7,12,.92));
+  border:2px solid rgba(255,88,152,.28);padding:34px 40px;overflow:hidden}
+.card .n{font:500 24px JB;color:var(--pink);letter-spacing:.08em}
+.card .w{font:600 104px/1 SG;color:#fff;margin-top:58px;letter-spacing:-.02em}
+.card .sheen{position:absolute;top:-40%;width:160px;height:180%;left:-220px;
+  background:linear-gradient(90deg,transparent,rgba(255,200,225,.16),transparent);transform:rotate(18deg)}
+.prompt{position:absolute;top:630px;width:480px;font:500 23px/1.45 JB;color:var(--cream);white-space:pre-wrap}
+.prompt b{color:var(--pink);font-weight:500}
+.caret{display:inline-block;width:12px;height:26px;background:var(--pink);vertical-align:-5px;margin-left:3px}
+#beam{position:absolute;inset:0}
+.hl{position:absolute;left:150px;font:600 132px/1.02 SG;letter-spacing:-.03em;color:#fff}
+.hl.p{color:var(--pink)}
+</style></head><body>
+<canvas id="bg" width="1920" height="1080"></canvas>
+<div id="stage">
+ <div class="scene" id="hook">
+  <canvas id="beam" width="1920" height="1080"></canvas>
+  <div id="logo"><img src="assets/adal2.svg"></div>
+  <div class="card" id="c0" style="left:150px"><div class="n">01</div><div class="w">Build</div><div class="sheen"></div></div>
+  <div class="card" id="c1" style="left:720px"><div class="n">02</div><div class="w">Demo</div><div class="sheen"></div></div>
+  <div class="card" id="c2" style="left:1290px"><div class="n">03</div><div class="w">GTM</div><div class="sheen"></div></div>
+  <div class="prompt" id="p0" style="left:150px"></div>
+  <div class="prompt" id="p1" style="left:720px"></div>
+  <div class="prompt" id="p2" style="left:1290px"></div>
+ </div>
+ <div class="scene" id="harness">
+  <div class="hl" id="h0" style="top:300px">Automation-first</div>
+  <div class="hl p" id="h1" style="top:440px">agent harness.</div>
+  <canvas id="beam2" width="1920" height="1080" style="position:absolute;inset:0"></canvas>
+ </div>
+</div>
+<script>
+const SCENE = new URLSearchParams(location.search).get('scene') || 'hook';
+document.getElementById(SCENE).style.display = 'block';
+const HOOK = {logo: 0.9, build: 2.2, demo: 3.2, gtm: 3.64, prompt: 4.66, push: 5.85, end: 6.5};
+const HARN = {h0: 1.35, h1: 2.05, end: 3.3};
+window.END = SCENE === 'hook' ? HOOK.end : HARN.end;
+const PROMPTS = [
+  'Build me a Chrome extension that scores every post in my X feed',
+  'Run it on my real feed and make the demo video.',
+  'Launch Slop Detector on X and LinkedIn.'];
+
+const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ramp = (t, a, d) => cl((t - a) / d);
+const eo = x => 1 - Math.pow(1 - x, 3);
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const back = x => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+
+// seeded dust
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const DUST = Array.from({length: 140}, () => ({x: rnd() * 1920, y: rnd() * 1080, r: .6 + rnd() * 1.8, s: 6 + rnd() * 26, a: .15 + rnd() * .5, p: rnd() * 6.28}));
+
+function background(t, intensity) {
+  const g = document.getElementById('bg').getContext('2d');
+  g.fillStyle = '#0A0407'; g.fillRect(0, 0, 1920, 1080);
+  const blob = (x, y, r, a) => {
+    const rg = g.createRadialGradient(x, y, 0, x, y, r);
+    rg.addColorStop(0, `rgba(255,88,152,${a})`); rg.addColorStop(1, 'rgba(255,88,152,0)');
+    g.fillStyle = rg; g.fillRect(0, 0, 1920, 1080);
+  };
+  blob(1500 + 80 * Math.sin(t * .6), 180 + 40 * Math.cos(t * .5), 760, .20 * intensity);
+  blob(300 + 60 * Math.cos(t * .45), 980, 700, .13 * intensity);
+  // perspective floor grid, scrolling toward the viewer
+  const hz = 760, vx = 960;
+  g.save(); g.beginPath(); g.rect(0, hz, 1920, 1080 - hz); g.clip();
+  g.lineWidth = 1.2;
+  for (let i = -14; i <= 14; i++) {
+    const a = .16 * intensity * (1 - Math.abs(i) / 16);
+    g.strokeStyle = `rgba(255,88,152,${a})`;
+    g.beginPath(); g.moveTo(vx + i * 22, hz); g.lineTo(vx + i * 260, 1080); g.stroke();
+  }
+  const off = (t * .55) % 1;
+  for (let k = 0; k < 12; k++) {
+    const z = (k + off) / 12, y = hz + Math.pow(z, 2.2) * (1080 - hz);
+    g.strokeStyle = `rgba(255,88,152,${.24 * intensity * z * z})`;
+    g.beginPath(); g.moveTo(0, y); g.lineTo(1920, y); g.stroke();
+  }
+  g.restore();
+  for (const d of DUST) {
+    const y = (d.y - t * d.s + 1080) % 1080, tw = .6 + .4 * Math.sin(t * 2 + d.p);
+    g.fillStyle = `rgba(255,190,215,${d.a * tw * intensity})`;
+    g.beginPath(); g.arc(d.x, y, d.r, 0, 6.29); g.fill();
+  }
+}
+
+function glowLine(g, x0, y, x1, p, a) {
+  if (p <= 0) return;
+  const x = x0 + (x1 - x0) * p;
+  g.save(); g.globalAlpha = a;
+  g.shadowColor = '#FF5898'; g.shadowBlur = 24;
+  g.strokeStyle = '#FF5898'; g.lineWidth = 4; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(x0, y); g.lineTo(x, y); g.stroke();
+  if (p < 1) { g.fillStyle = '#fff'; g.shadowBlur = 40; g.beginPath(); g.arc(x, y, 8, 0, 6.29); g.fill(); }
+  g.restore();
+}
+
+function card(i, t, at) {
+  const el = document.getElementById('c' + i), p = eo(ramp(t, at, .45));
+  el.style.opacity = p;
+  el.style.transform = `translateY(${(1 - p) * 60}px) scale(${.92 + .08 * back(ramp(t, at, .5))})`;
+  el.style.filter = `blur(${(1 - p) * 10}px)`;
+  const hot = Math.exp(-Math.max(0, t - at) * 2.2) * (t >= at ? 1 : 0);
+  el.style.borderColor = `rgba(255,88,152,${.28 + .72 * hot})`;
+  el.style.boxShadow = `0 0 ${20 + 90 * hot}px rgba(255,88,152,${.12 + .5 * hot}), inset 0 0 ${40 * hot}px rgba(255,88,152,${.25 * hot})`;
+  el.querySelector('.sheen').style.left = (-220 + 900 * eio(ramp(t, at + .1, .7))) + 'px';
+}
+
+function typed(i, t, at) {
+  const el = document.getElementById('p' + i), s = PROMPTS[i];
+  const k = Math.floor(cl((t - at) / .9) * s.length);
+  if (t < at) { el.innerHTML = ''; return; }
+  const caret = k < s.length || Math.floor(t * 3) % 2 === 0 ? '<span class="caret"></span>' : '';
+  el.innerHTML = '<b>&gt; </b>' + s.slice(0, k) + caret;
+}
+
+function renderHook(t) {
+  background(t, eo(ramp(t, 0, .4)));
+  // logo: lands centre on "In AdaL", then lifts to the top
+  const L = document.getElementById('logo');
+  const pin = back(ramp(t, .3, .6)), lift = eio(ramp(t, 1.8, .6));
+  const w = 620 - 330 * lift, top = 470 - 330 * lift;
+  L.style.width = w + 'px';
+  L.style.top = (top - w * 195 / 840 / 2) + 'px';
+  L.style.opacity = cl(ramp(t, .2, .3));
+  L.style.transform = `translateX(-50%) scale(${.6 + .4 * pin})`;
+  const bloom = Math.exp(-Math.max(0, t - HOOK.logo) * 2.5) * (t > HOOK.logo - .2 ? 1 : 0);
+  L.style.filter = `drop-shadow(0 0 ${10 + 60 * bloom}px rgba(255,88,152,${.35 + .6 * bloom}))`;
+
+  card(0, t, HOOK.build); card(1, t, HOOK.demo); card(2, t, HOOK.gtm);
+  const g = document.getElementById('beam').getContext('2d');
+  g.clearRect(0, 0, 1920, 1080);
+  // shockwave ring on the logo landing
+  const rp = ramp(t, .75, 1.1);
+  if (rp > 0 && rp < 1) {
+    g.save(); g.strokeStyle = `rgba(255,88,152,${.6 * (1 - rp)})`; g.lineWidth = 3;
+    g.shadowColor = '#FF5898'; g.shadowBlur = 20;
+    g.beginPath(); g.ellipse(960, 470, 200 + 900 * eo(rp), 60 + 280 * eo(rp), 0, 0, 6.29); g.stroke(); g.restore();
+  }
+  glowLine(g, 630, 465, 720, eio(ramp(t, HOOK.demo - .3, .3)), 1);
+  glowLine(g, 1200, 465, 1290, eio(ramp(t, HOOK.gtm - .25, .25)), 1);
+  typed(0, t, HOOK.prompt); typed(1, t, HOOK.prompt + .25); typed(2, t, HOOK.prompt + .5);
+
+  // push into card 01, which is where the demo picks up (Prompt 1)
+  const pp = eio(ramp(t, HOOK.push, HOOK.end - HOOK.push));
+  const S = document.getElementById('stage');
+  S.style.transform = `scale(${1 + 2.4 * pp})`;
+  S.style.filter = `blur(${pp * 14}px)`;
+  S.style.opacity = 1 - cl((pp - .45) / .55);
+}
+
+function renderHarness(t) {
+  background(t + 10, 1);
+  const show = (id, at) => {
+    const el = document.getElementById(id), p = eo(ramp(t, at, .4));
+    el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 40}px)`; el.style.filter = `blur(${(1 - p) * 8}px)`;
+  };
+  show('h0', HARN.h0 - .15); show('h1', HARN.h1 - .15);
+  const g = document.getElementById('beam2').getContext('2d');
+  g.clearRect(0, 0, 1920, 1080);
+  // the three stages as one lit line under the headline
+  const y = 690, xs = [150, 560, 970];
+  const lp = eio(ramp(t, .1, 1.1));
+  glowLine(g, 150, y, 150 + (970 - 150) * lp, 1, .9);
+  g.save(); g.font = '500 30px JB';
+  ['BUILD', 'DEMO', 'GTM'].forEach((s, i) => {
+    const a = cl((lp * 820 - (xs[i] - 150)) / 60 + 1);
+    g.globalAlpha = a; g.fillStyle = '#FF5898'; g.shadowColor = '#FF5898'; g.shadowBlur = 26;
+    g.beginPath(); g.arc(xs[i], y, 11, 0, 6.29); g.fill();
+    g.shadowBlur = 0; g.fillStyle = '#FFE4EE'; g.fillText(s, xs[i] - 8, y + 58);
+  });
+  g.restore();
+  const out = ramp(t, HARN.end - .25, .25);
+  document.getElementById('stage').style.opacity = 1 - out;
+}
+
+window.render = t => SCENE === 'hook' ? renderHook(t) : renderHarness(t);
+window.render(0);
+</script></body></html>

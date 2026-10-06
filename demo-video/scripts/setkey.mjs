@@ -1,0 +1,12 @@
+import { createRequire } from 'module';
+const require = createRequire(process.env.HOME + '/.cache/adal-demo/package.json');
+const { chromium } = require('playwright');
+const b = await chromium.connectOverCDP('http://127.0.0.1:9333');
+const ctx = b.contexts()[0];
+const p = await ctx.newPage();
+await p.goto(`chrome-extension://${process.argv[2]}/src/popup.html`);
+await p.evaluate(k => chrome.storage.sync.set({ apiKey: k }), process.env.TYPESAFE_API_KEY);
+console.log('key set:', await p.evaluate(() => chrome.storage.sync.get('apiKey').then(r => !!r.apiKey)));
+const sw = (await (await fetch('http://127.0.0.1:9333/json/list')).json()).filter(t => t.type === 'service_worker').map(t => t.url);
+console.log('service workers:', sw);
+await p.close(); await b.close().catch(() => {});

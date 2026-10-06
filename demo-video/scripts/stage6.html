@@ -1,0 +1,199 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Jev Slop Detector Film v6</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+@font-face{font-family:'Space Grotesk';font-weight:500;src:url(assets/fonts/space-grotesk-500-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-weight:600;src:url(assets/fonts/space-grotesk-600-latin.woff2) format('woff2')}
+@font-face{font-family:'JB';font-weight:500;src:url(assets/fonts/JetBrains-Mono-500-normal.ttf)}
+@font-face{font-family:'JB';font-weight:600;src:url(assets/fonts/JetBrains-Mono-600-normal.ttf)}
+:root{--pink:#FF5898;--deep:#E84D87;--ink:#16070D;--cream:#FFE4EE}
+*{box-sizing:border-box;margin:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--cream);font-family:'Inter',sans-serif;color:var(--ink)}
+.scene{position:absolute;inset:0;opacity:0;overflow:hidden;background:var(--cream)}
+img.fill{position:absolute;display:block}
+#statcard{position:absolute;left:64px;top:150px;width:252px;background:#fff;border-radius:18px;padding:24px 28px;
+          box-shadow:0 20px 60px rgba(22,7,13,.14);opacity:0;z-index:30}
+#statcard div{display:flex;flex-direction:column;align-items:flex-start}
+#statcard div+div{margin-top:20px}
+#statcard b{font:600 50px 'JB';color:var(--ink);line-height:1.05}
+#statcard i{font:500 17px 'Inter';font-style:normal;color:#8a6f7a;letter-spacing:.7px;text-transform:uppercase;margin-top:4px}
+.win{position:absolute;background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(22,7,13,.16);overflow:hidden}
+.bar{height:44px;display:flex;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid #f3dbe5;font:500 17px 'JB';color:#9b7a88}
+.dot{width:12px;height:12px;border-radius:50%;background:#f1c9d8}
+.port{position:absolute;left:0;right:0;top:44px;bottom:0;overflow:hidden}
+/* the close card: the only authored words in the film */
+#close{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:56px}
+#close img{width:232px}
+#close span{font:600 66px/1.1 'Space Grotesk';letter-spacing:-1px;color:var(--ink)}
+</style></head><body>
+
+<div class="scene" id="s01"><img class="fill" id="i01"></div>
+<div class="scene" id="s02"><img class="fill" id="i02"></div>
+<div class="scene" id="s03"><img class="fill" id="i03"></div>
+<div class="scene" id="s04"><img class="fill" id="i04"></div>
+<div class="scene" id="s05"><img class="fill" id="i05"></div>
+<div class="scene" id="s06"><img class="fill" id="i06"></div>
+<div class="scene" id="s07"><img class="fill" id="i07"></div>
+<div class="scene" id="s08"><img class="fill" id="i08"></div>
+<div class="scene" id="s09"><img class="fill" id="i09"></div>
+<div class="scene" id="s10"><img class="fill" id="i10"></div>
+<div class="scene" id="s11"><img class="fill" id="i11">
+  <div class="win" id="prwin" style="left:300px;top:96px;width:1540px;height:904px;opacity:0">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">github.com/jxspam/slop-detector/pull/5</span></div>
+    <div class="port"><img id="prImg" src="v5/assets/pr/conversation-full.png" style="position:absolute;left:0;top:0;width:1540px"></div>
+  </div></div>
+<div class="scene" id="s12">
+  <div class="win" id="lgwin" style="left:300px;top:96px;width:1540px;height:904px">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">landing-tau-eight-44.vercel.app</span></div>
+    <div class="port"><img id="lgImg" src="v6/assets/landing-full.png" style="position:absolute;left:0;top:0;width:1540px"></div>
+  </div></div>
+<div class="scene" id="s13"><div id="close"><img src="assets/adal1.svg"><span>Idea to launch, one session</span></div></div>
+
+<div id="statcard"><div><b id="clock">00:00</b><i>build time</i></div><div><b id="spend">$0.00</b><i>spend</i></div></div>
+
+<script>
+// v06. Two sources, nothing else.
+//   TERMINAL  out/segs5/<name>, rendered from the deliverable take v5/takes/20260923-092317.
+//   BROWSER   v6/captures/*, recorded directly on 23 Sep against the real docs, the real
+//             x.com feed with the real MV3 extension attached, and the extension's own
+//             options page. 1920x1080 at 30 fps, played 1:1.
+//
+// NO CAMERA. Every scene is a fixed frame: there is no cam() scale ramp, no pan and no
+// zoom anywhere in this file. A source image is placed once, at one position, at one
+// scale, for the whole beat. What moves inside a frame is the page itself scrolling or
+// the terminal printing, which is footage, not a camera.
+//
+// NO CAPTIONS. The only authored words on screen are the close card, s13.
+const DUR = [['s01',4.5],['s02',6.5],['s03',9.0],
+             ['s04',6.0],['s05',5.5],
+             ['s06',5.0],['s07',4.5],['s08',21.0],['s09',4.0],['s10',8.0],['s11',7.5],
+             ['s12',6.5],['s13',4.0]];
+const T = {}; let acc = 0; for (const [k,d] of DUR){ T[k]=[acc,acc+d]; acc+=d; }
+window.T = T; window.END = acc;
+
+// The four stage rail reads its seconds from v6/stages.json.
+(function(){ const x = new XMLHttpRequest(); x.open('GET','v6/stages.json',false); x.send(null);
+  window.STAGES = JSON.parse(x.responseText); })();
+
+const ease = x => x<0?0:x>1?1:(1-Math.cos(Math.PI*x))/2;
+const lerp = (a,b,x) => a+(b-a)*x;
+const seg = (t,a,b) => ease((t-a)/(b-a));
+const clamp = (x,a,b) => x<a?a:x>b?b:x;
+const pad = n => String(n).padStart(5,'0');
+
+let SPEND = null, SEGMAP = null;
+const pend = [];
+function setSrc(img, src){ if (img.getAttribute('src') !== src) img.setAttribute('src', src); pend.push(img); }
+
+// place a source image at ONE fixed position and scale. Called with constants only.
+function place(img, sw, sh, cx, cy, s){
+  const w=sw*s, h=sh*s; img.style.width=w+'px'; img.style.height=h+'px';
+  img.style.left=(960-cx*s)+'px'; img.style.top=(540-cy*s)+'px';
+}
+// the rendered terminal window: 1360x765 at pixelRatio 2, one fixed framing for every terminal beat
+const TERM = { w:2720, h:1530, cx:1359.5, cy:790.5, s:0.68 };
+// a full frame 1920x1080 browser capture, placed 1:1 and centred
+function shot(img, src){ setSrc(img, src); place(img, 1920, 1080, 960, 540, 1.0); }
+
+let castNow = 7.0;
+function term(img, name, f0, f1, lt, t0, t1){
+  const f = Math.round(clamp(lerp(f0,f1,(lt-t0)/(t1-t0)), Math.min(f0,f1), Math.max(f0,f1)));
+  setSrc(img, `out/segs5/${name}/frames/${pad(f)}.png`);
+  place(img, TERM.w, TERM.h, TERM.cx, TERM.cy, TERM.s);
+  castNow = castOfSeg(name, f);
+  return f;
+}
+function castOfSeg(name, f){
+  const m = SEGMAP[name]; const vt = f/30;
+  for (const [v0,v1,c0,c1] of m.blocks){ if (vt <= v1) return c0 + (c1-c0)*clamp((vt-v0)/(v1-v0),0,1); }
+  return m.B;
+}
+// a v6 capture frame, played 1:1 at 30 fps from f0
+const CAP = 'v6/captures';
+function clip(img, dir, f0, lt){ shot(img, `${CAP}/${dir}/${pad(f0 + Math.round(lt*30))}.png`); }
+
+async function render(t){
+  if (!SPEND) SPEND = await (await fetch('v5/spend-run.json')).json();
+  if (!SEGMAP) SEGMAP = await (await fetch('v5/segmap.json')).json();
+  pend.length = 0;
+  const sc = document.getElementById('statcard');
+  for (const [id,[a,b]] of Object.entries(T)){
+    const el = document.getElementById(id);
+    const on = t>=a && t<b;
+    el.style.opacity = on ? 1 : 0;
+    if (!on) continue;
+    const lt = t-a, d = b-a;
+
+    // b01 the capabilities menu, browser use switched on by hand
+    if (id==='s01'){ term(document.getElementById('i01'),'caps',85,175,lt,0,d); }
+
+    // b02 the one paragraph, typed and sent
+    if (id==='s02'){ term(document.getElementById('i02'),'idea',10,232,lt,0,d-0.55); }
+
+    // b03 the TypeSafe Jev API documentation, one unbroken scroll, frames 60 to 330
+    if (id==='s03'){ clip(document.getElementById('i03'),'jev-docs-scroll-frames',60,lt);
+      castNow = lerp(88.0,112.0,clamp(lt/d,0,1)); }
+
+    // b04 RESEARCH.md and then the PRD written out of it
+    if (id==='s04'){ term(document.getElementById('i04'),'prd',20,200,lt,0,d); }
+
+    // b05 the extension's judge module and its test file
+    if (id==='s05'){ term(document.getElementById('i05'),'judge',10,170,lt,0,d); }
+
+    // b06 the unit tests run, 9 of 9
+    if (id==='s06'){ term(document.getElementById('i06'),'tests',10,190,lt,0,d); }
+
+    // b07 the unpacked extension loaded into the Edge that was already running
+    if (id==='s07'){ term(document.getElementById('i07'),'load',95,245,lt,0,d); }
+
+    // b08 the real feed, the long run: 630 frames, 21 s, one straight scroll at 1:1
+    if (id==='s08'){ clip(document.getElementById('i08'),'x-classification-scroll-frames',100,lt);
+      castNow = lerp(932,1120,clamp(lt/d,0,1)); }
+
+    // b09 the extension's own options page, the threshold changed and saved
+    if (id==='s09'){ clip(document.getElementById('i09'),'x-extension-settings-frames',12,lt);
+      castNow = lerp(1120,1160,clamp(lt/d,0,1)); }
+
+    // b10 back into the same feed, 240 frames, 8 s at 1:1
+    if (id==='s10'){ clip(document.getElementById('i10'),'x-classification-scroll-frames',1100,lt);
+      castNow = lerp(1160,1218,clamp(lt/d,0,1)); }
+
+    // b11 the pull request it opens, then its body with the screenshots that render
+    if (id==='s11'){ const im=document.getElementById('i11'), pw=document.getElementById('prwin');
+      const cut = lt>=3.0;
+      im.style.opacity = 1-seg(lt,2.85,3.05); pw.style.opacity = seg(lt,2.85,3.05);
+      if (!cut){ term(im,'pr',95,215,lt,0,3.0); }
+      else { const H = 1540*9432/2880; const p = lerp(0.075,0.68,seg(lt,3.35,7.0));
+        document.getElementById('prImg').style.top = (-p*H)+'px';
+        castNow = lerp(2098,2162,clamp(lt/d,0,1)); } }
+
+    // b12 the deployed page, captured today: the fixed 20 s demo, no floating badge
+    if (id==='s12'){ const H = 1540*3852/2880; const p = lerp(0.0,0.52,seg(lt,0.25,d-0.2));
+      document.getElementById('lgImg').style.top = (-p*H)+'px';
+      castNow = lerp(2165,2235,clamp(lt/d,0,1)); }
+
+    // b13 close
+    if (id==='s13'){ castNow = 2291.0; }
+  }
+  readout(castNow);
+  sc.style.opacity = 1;
+  await Promise.all(pend.map(im => im.complete && im.naturalWidth ? null : new Promise(r => { im.onload = im.onerror = r; })));
+}
+
+// The readout is the recorded session. The clock is the cast clock, which ends at 38:11,
+// and the spend is spend-run.json, one cumulative point per minute since the prompt was
+// submitted at cast 46.4. It plateaus at $1.30, the real total for the run.
+function readout(cast){
+  const el = clamp(cast, 0, 2291.0);
+  const m = clamp((cast - 46.4)/60, 0, SPEND[SPEND.length-1][0]);
+  let usd;
+  if (m >= SPEND[SPEND.length-1][0]) usd = SPEND[SPEND.length-1][1];
+  else { const i = Math.floor(m); const a = SPEND[i], b = SPEND[i+1]; usd = a[1] + (b[1]-a[1])*(m-i); }
+  document.getElementById('clock').textContent =
+    String(Math.floor(el/60)).padStart(2,'0')+':'+String(Math.floor(el%60)).padStart(2,'0');
+  document.getElementById('spend').textContent = '$'+usd.toFixed(2);
+}
+window.render = render;
+</script>
+<script src="v5/graphics/stages.js"></script>
+</body></html>

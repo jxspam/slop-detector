@@ -1,0 +1,201 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Jev Slop Detector Film v3</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+@font-face{font-family:'Space Grotesk';font-weight:500;src:url(assets/fonts/space-grotesk-500-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-weight:600;src:url(assets/fonts/space-grotesk-600-latin.woff2) format('woff2')}
+@font-face{font-family:'JB';font-weight:500;src:url(assets/fonts/JetBrains-Mono-500-normal.ttf)}
+@font-face{font-family:'JB';font-weight:600;src:url(assets/fonts/JetBrains-Mono-600-normal.ttf)}
+:root{--pink:#FF5898;--deep:#E84D87;--ink:#16070D;--cream:#FFE4EE}
+*{box-sizing:border-box;margin:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--cream);font-family:'Inter',sans-serif;color:var(--ink)}
+.scene{position:absolute;inset:0;opacity:0;overflow:hidden;background:var(--cream)}
+img.fill{position:absolute;display:block}
+/* caption band: only lit on the few beats that carry a label */
+#cap{position:absolute;left:0;right:0;bottom:0;height:112px;display:flex;align-items:center;justify-content:center;
+     font:600 42px/1.1 'Space Grotesk';letter-spacing:-0.4px;color:var(--ink);opacity:0;z-index:40;background:var(--cream)}
+#cap em{font-style:normal;color:var(--deep)}
+/* session readout, driven by the recorded spend curve */
+#statcard{position:absolute;right:150px;top:74px;display:flex;gap:46px;background:#fff;border-radius:18px;padding:22px 34px;
+          box-shadow:0 20px 60px rgba(22,7,13,.16);opacity:0;z-index:30}
+#statcard div{display:flex;flex-direction:column;align-items:flex-start}
+#statcard b{font:600 52px 'JB';color:var(--ink)}
+#statcard i{font:500 18px 'Inter';font-style:normal;color:#8a6f7a;letter-spacing:.6px;text-transform:uppercase}
+.win{position:absolute;background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(22,7,13,.16);overflow:hidden}
+.bar{height:44px;display:flex;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid #f3dbe5;font:500 17px 'JB';color:#9b7a88}
+.dot{width:12px;height:12px;border-radius:50%;background:#f1c9d8}
+#mark{position:absolute;right:96px;bottom:76px;width:168px;opacity:0}
+</style></head><body>
+
+<div class="scene" id="s01"><img class="fill" id="i01"></div>
+<div class="scene" id="s02"><img class="fill" id="i02"></div>
+<div class="scene" id="s03"><img class="fill" id="i03"></div>
+<div class="scene" id="s04"><img class="fill" id="i04"></div>
+<div class="scene" id="s05"><img class="fill" id="i05"></div>
+<div class="scene" id="s06"><img class="fill" id="i06"></div>
+<div class="scene" id="s07"><img class="fill" id="i07"></div>
+<div class="scene" id="s08"><img class="fill" id="i08"></div>
+<div class="scene" id="s09"><img class="fill" id="i09"></div>
+<div class="scene" id="s10"><img class="fill" id="i10"></div>
+<div class="scene" id="s11"><img class="fill" id="i11"></div>
+<div class="scene" id="s12"><img class="fill" id="i12"></div>
+<div class="scene" id="s13"><img class="fill" id="i13">
+  <div class="win" id="prwin" style="left:300px;top:36px;width:1320px;height:1008px;opacity:0">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">github.com/jxspam/slop-detector/pull/1</span></div>
+    <div style="position:absolute;left:0;top:44px;right:0;bottom:0;overflow:hidden"><img id="prImg" src="v2/assets/pr/conversation-full.png" style="position:absolute;left:0;top:0;width:1320px"></div>
+  </div></div>
+<div class="scene" id="s14"><img class="fill" id="i14">
+  <div class="win" id="w16" style="left:120px;top:198px;width:1140px;height:685px;opacity:0"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">launch 16:9</span></div><img id="c16" style="position:absolute;left:0;top:44px;width:1140px"></div>
+  <div class="win" id="w9" style="left:1330px;top:100px;width:470px;height:880px;opacity:0"><div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">launch 9:16</span></div><img id="c9" style="position:absolute;left:0;top:44px;width:470px"></div>
+</div>
+<div class="scene" id="s15"></div>
+
+<img id="mark" src="assets/adal1.svg">
+<div id="cap"><span id="capT"></span></div>
+
+<script>
+// beat table: id, seconds. Order follows the script, beat for beat.
+const DUR = [['s01',5],['s02',8],['s03',8],['s04',7],['s05',8],['s06',9],['s07',7],['s08',8],['s09',8],
+             ['s10',9],['s11',5],['s12',14],['s13',14],['s14',10],['s15',4]];
+const T = {}; let acc = 0; for (const [k,d] of DUR){ T[k]=[acc,acc+d]; acc+=d; }
+window.T = T; window.END = acc;
+const N = {abuild:551,bproof:665,bvideo:561,cfix:578,bpr:357,xpost:299,prd:326,jevdocs:261,landingbuild:360,landingtest:288};
+const ease = x => x<0?0:x>1?1:(1-Math.cos(Math.PI*x))/2;
+const lerp = (a,b,x) => a+(b-a)*x;
+const seg = (t,a,b) => ease((t-a)/(b-a));
+const clamp = (x,a,b) => x<a?a:x>b?b:x;
+let SPEND = null;
+const pend = [];
+function setSrc(img, src){ if (img.getAttribute('src') !== src) img.setAttribute('src', src); pend.push(img); }
+const pad = n => String(n).padStart(5,'0');
+// place a source frame so it fills 1920x1080, optionally lifted to clear the caption band
+function fit(img, sw, sh, lift){
+  const s = (1920/sw) * (1 - 0.105*lift), w = sw*s, h = sh*s;
+  img.style.width=w+'px'; img.style.height=h+'px';
+  img.style.left=((1920-w)/2)+'px'; img.style.top=((1080-h)/2 - 54*lift)+'px';
+}
+// put source point (cx,cy) at the stage centre at scale s
+function cam(img, sw, sh, cx, cy, s){
+  const w=sw*s, h=sh*s; img.style.width=w+'px'; img.style.height=h+'px';
+  img.style.left=(960-cx*s)+'px'; img.style.top=(540-cy*s)+'px';
+}
+// a segment frame, linear between two frame indices over the local time window
+function segFrame(img, name, f0, f1, lt, t0, t1){
+  const f = Math.round(clamp(lerp(f0,f1,(lt-t0)/(t1-t0)), Math.min(f0,f1), Math.max(f0,f1)));
+  setSrc(img, `out/segs/${name}/frames/${pad(f)}.png`);
+  return f;
+}
+// the caption band, lit only where a label earns its place
+const CAPS = [
+  ['s05', 1.2, 7.4, 'One paragraph in'],
+  ['s10', 0.6, 8.4, 'Docs, then tests'],
+  ['s12', 0.6, 7.6, 'Real posts on X'],
+  ['s14', 5.4, 9.6, 'Reels and 16:9'],
+];
+function caption(id, lt){
+  let on = 0, txt = '';
+  for (const [sid,a,b,s] of CAPS){ if (sid===id){ const v = seg(lt,a,a+0.45)*(1-seg(lt,b-0.45,b)); if (v>on){ on=v; txt=s; } } }
+  const c = document.getElementById('cap');
+  c.style.opacity = on;
+  if (on>0) document.getElementById('capT').textContent = txt;
+  return on;
+}
+async function render(t){
+  if (!SPEND) SPEND = (await (await fetch('data2.json')).json()).spend;
+  pend.length = 0;
+  const sc = document.getElementById('statcard'), mk = document.getElementById('mark');
+  sc.style.opacity = 0; mk.style.opacity = 0;
+  for (const [id,[a,b]] of Object.entries(T)){
+    const el = document.getElementById(id);
+    const on = t>=a && t<b;
+    el.style.opacity = on ? 1 : 0;
+    if (!on) continue;
+    const lt = t-a, d = b-a;
+    const lift = caption(id, lt);
+
+    // b01 the terminal at rest
+    if (id==='s01'){ const im=document.getElementById('i01'); segFrame(im,'abuild',0,20,lt,0,d); fit(im,2560,1440,0); }
+
+    // b02 the loop: idea, build, test, PR, demo video, launch post, track performance
+    if (id==='s02'){ const im=document.getElementById('i02'); const f=clamp(10+Math.floor(lt*29),0,239);
+      setSrc(im,`v3/graphics/loop/frames/${pad(f)}.png`); fit(im,1920,1080,0); }
+
+    // b03 capabilities: browser use on, then video on
+    if (id==='s03'){ const im=document.getElementById('i03'); segFrame(im,'bvideo',55,215,lt,0,d); fit(im,2560,1440,0); }
+
+    // b04 Robin Bilgil's post, read on screen
+    if (id==='s04'){ const im=document.getElementById('i04'); segFrame(im,'xpost',176,296,lt,0,d-0.9);
+      const p=seg(lt,3.4,6.6); cam(im,2560,1440,lerp(1280,1230,p),lerp(720,900,p),lerp(0.75,0.98,p)); }
+
+    // b05 one paragraph in
+    if (id==='s05'){ const im=document.getElementById('i05'); segFrame(im,'abuild',20,175,lt,0,d-0.6); fit(im,2560,1440,lift); }
+
+    // b06 the PRD written
+    if (id==='s06'){ const im=document.getElementById('i06'); segFrame(im,'prd',60,325,lt,0,d); fit(im,2560,1440,0); }
+
+    // b07 GLM-5.3 Flash on the session line
+    if (id==='s07'){ const im=document.getElementById('i07'); segFrame(im,'abuild',175,335,lt,0,d); fit(im,2560,1440,0); }
+
+    // b08 it drives the browser you are already signed in to
+    if (id==='s08'){ const im=document.getElementById('i08'); segFrame(im,'bproof',340,520,lt,0,d); fit(im,2560,1440,0); }
+
+    // b09 the clock and the spend, from the recorded session
+    if (id==='s09'){ const im=document.getElementById('i09'); const f=segFrame(im,'abuild',335,460,lt,0,d); fit(im,2560,1440,0);
+      readout(f); sc.style.opacity = seg(lt,0.4,1.1); }
+
+    // b10 the API doc it needs, then its own tests
+    if (id==='s10'){ const im=document.getElementById('i10');
+      if (lt<5){ segFrame(im,'jevdocs',146,258,lt,0,5); } else { segFrame(im,'bproof',180,285,lt,5,d); }
+      fit(im,2560,1440,lift); }
+
+    // b11 built
+    if (id==='s11'){ const im=document.getElementById('i11'); const f=segFrame(im,'abuild',460,550,lt,0,d-1.2); fit(im,2560,1440,0);
+      readout(Math.max(f,460)); sc.style.opacity = 1; }
+
+    // b12 the product on a real feed, then the three confidence tiers
+    if (id==='s12'){ const im=document.getElementById('i12');
+      if (lt<5.5){ const f=Math.round(lerp(470,635,lt/5.5)); setSrc(im,`v3/frames/xfeed/${pad(f)}.png`); fit(im,1920,1038,lift); }
+      else if (lt<8.0){ segFrame(im,'cfix',480,555,lt,5.5,8.0); fit(im,2560,1440,lift); }
+      else { const f=clamp(12+Math.round((lt-8.0)*29),0,179); setSrc(im,`v3/graphics/tiers/frames/${pad(f)}.png`); fit(im,1920,1080,0); } }
+
+    // b13 the PR, the landing page it designed, then it drives the page as a user
+    if (id==='s13'){ const im=document.getElementById('i13'), pw=document.getElementById('prwin');
+      pw.style.opacity = (lt>=4.0 && lt<6.6) ? 1 : 0;
+      im.style.opacity = (lt>=4.0 && lt<6.6) ? 0 : 1;
+      if (lt<4.0){ segFrame(im,'bpr',30,190,lt,0,4.0); fit(im,2560,1440,0); }
+      else if (lt<6.6){ const H=1320*14796/2880; const p=lerp(0.012,0.185,seg(lt,4.2,6.4));
+        document.getElementById('prImg').style.top=(-p*H)+'px'; }
+      else if (lt<9.6){ segFrame(im,'landingbuild',150,330,lt,6.6,9.6); fit(im,2560,1440,0); }
+      else { segFrame(im,'landingtest',96,282,lt,9.6,d); const p=seg(lt,10.2,13.6);
+        cam(im,2560,1440,lerp(1280,1330,p),lerp(720,860,p),lerp(0.75,0.93,p)); } }
+
+    // b14 the launch cuts, both sizes, captions burned in
+    if (id==='s14'){ const im=document.getElementById('i14'), w16=document.getElementById('w16'), w9=document.getElementById('w9');
+      const cut = lt>=5.1;
+      im.style.opacity = 1-seg(lt,4.9,5.1); w16.style.opacity = seg(lt,4.9,5.35); w9.style.opacity = seg(lt,5.1,5.55);
+      if (!cut){ segFrame(im,'bvideo',215,400,lt,0,5.0); fit(im,2560,1440,0); }
+      const f=clamp(Math.round(30+(lt-5.0)*30),0,401);
+      setSrc(document.getElementById('c16'),`v3/frames/launch16/${pad(f)}.png`);
+      setSrc(document.getElementById('c9'),`v3/frames/launch9/${pad(f)}.png`); }
+
+    // b15 close
+    if (id==='s15'){ mk.style.opacity = seg(lt,0.5,1.4)*(1-seg(lt,d-0.5,d)); }
+  }
+  await Promise.all(pend.map(im => im.complete && im.naturalWidth ? null : new Promise(r => { im.onload = im.onerror = r; })));
+}
+// the readout is the recorded session, mapped from the abuild frame index
+function readout(f){
+  const lt = f/30;
+  const K=[[0,13.6],[0.6,14.2],[4.24,32.4],[5.24,33.4],[14.74,603.4],[16.74,605.4]];
+  let c=K[K.length-1][1];
+  for(let i=1;i<K.length;i++){ if(lt<=K[i][0]){ const [a0,b0]=K[i-1],[a1,b1]=K[i]; c=b0+(b1-b0)*(lt-a0)/(a1-a0); break; } }
+  const el=clamp(c-32.4,0,562);
+  let usd=0; for(const [s,u] of SPEND){ if(s<=el) usd=u; }
+  if (lt>14.74) usd=SPEND[SPEND.length-1][1];
+  document.getElementById('clock').textContent=String(Math.floor(el/60)).padStart(2,'0')+':'+String(Math.round(el%60)).padStart(2,'0');
+  document.getElementById('spend').textContent='$'+usd.toFixed(3);
+}
+window.render = render;
+</script>
+<div id="statcard"><div><b id="clock">00:00</b><i>build time</i></div><div><b id="spend">$0.000</b><i>spend</i></div></div>
+</body></html>

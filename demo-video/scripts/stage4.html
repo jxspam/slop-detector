@@ -1,0 +1,245 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Jev Slop Detector Film v4</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+@font-face{font-family:'Space Grotesk';font-weight:500;src:url(assets/fonts/space-grotesk-500-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-weight:600;src:url(assets/fonts/space-grotesk-600-latin.woff2) format('woff2')}
+@font-face{font-family:'JB';font-weight:500;src:url(assets/fonts/JetBrains-Mono-500-normal.ttf)}
+@font-face{font-family:'JB';font-weight:600;src:url(assets/fonts/JetBrains-Mono-600-normal.ttf)}
+:root{--pink:#FF5898;--deep:#E84D87;--ink:#16070D;--cream:#FFE4EE}
+*{box-sizing:border-box;margin:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--cream);font-family:'Inter',sans-serif;color:var(--ink)}
+.scene{position:absolute;inset:0;opacity:0;overflow:hidden;background:var(--cream)}
+img.fill{position:absolute;display:block}
+#cap{position:absolute;left:0;right:0;bottom:0;height:112px;display:flex;align-items:center;justify-content:center;
+     font:600 42px/1.1 'Space Grotesk';letter-spacing:-0.4px;color:var(--ink);opacity:0;z-index:40;background:var(--cream)}
+#statcard{position:absolute;left:64px;top:150px;width:252px;background:#fff;border-radius:18px;padding:24px 28px;
+          box-shadow:0 20px 60px rgba(22,7,13,.14);opacity:0;z-index:30}
+#statcard div{display:flex;flex-direction:column;align-items:flex-start}
+#statcard div+div{margin-top:20px}
+#statcard b{font:600 50px 'JB';color:var(--ink);line-height:1.05}
+#statcard i{font:500 17px 'Inter';font-style:normal;color:#8a6f7a;letter-spacing:.7px;text-transform:uppercase;margin-top:4px}
+.win{position:absolute;background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(22,7,13,.16);overflow:hidden}
+.bar{height:44px;display:flex;align-items:center;gap:10px;padding:0 18px;border-bottom:1px solid #f3dbe5;font:500 17px 'JB';color:#9b7a88}
+.dot{width:12px;height:12px;border-radius:50%;background:#f1c9d8}
+.port{position:absolute;left:0;right:0;top:44px;bottom:0;overflow:hidden}
+#mark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:260px;opacity:0;z-index:20}
+</style></head><body>
+
+<div class="scene" id="s01"><img class="fill" id="i01"></div>
+<div class="scene" id="s02"><img class="fill" id="i02"></div>
+<div class="scene" id="s03"><img class="fill" id="i03"></div>
+<div class="scene" id="s04"><img class="fill" id="i04"></div>
+<div class="scene" id="s05"><img class="fill" id="i05"></div>
+<div class="scene" id="s06"><img class="fill" id="i06"></div>
+<div class="scene" id="s07"><img class="fill" id="i07"></div>
+<div class="scene" id="s08"><img class="fill" id="i08"></div>
+<div class="scene" id="s09"><img class="fill" id="i09"></div>
+<div class="scene" id="s10">
+  <div class="win" id="xwin" style="left:300px;top:96px;width:1540px;height:904px">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">x.com/home</span></div>
+    <div class="port"><img id="i10" style="position:absolute"></div>
+  </div></div>
+<div class="scene" id="s11"><img class="fill" id="i11">
+  <div class="win" id="prwin" style="left:300px;top:96px;width:1540px;height:904px;opacity:0">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">github.com/jxspam/slop-detector/pull/3</span></div>
+    <div class="port"><img id="prImg" src="v4/assets/pr/conversation-full.png" style="position:absolute;left:0;top:0;width:1540px"></div>
+  </div></div>
+<div class="scene" id="s12"><img class="fill" id="i12">
+  <div class="win" id="lgwin" style="left:300px;top:96px;width:1540px;height:904px;opacity:0">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">slop-detector-sigma.vercel.app</span></div>
+    <div class="port"><img id="lgImg" src="v4/assets/live-full.png" style="position:absolute;left:0;top:0;width:1540px"></div>
+  </div></div>
+<div class="scene" id="s13"><img class="fill" id="i13">
+  <div class="win" id="w16" style="left:330px;top:250px;width:1020px;height:618px;opacity:0">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">launch_16x9.mp4</span></div>
+    <div class="port"><img id="c16" style="position:absolute;left:0;top:0;width:1020px"></div></div>
+  <div class="win" id="w9" style="left:1410px;top:214px;width:340px;height:653px;opacity:0">
+    <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:14px">launch_9x16.mp4</span></div>
+    <div class="port"><img id="c9" style="position:absolute;left:-371px;top:0;width:1082px"></div></div>
+</div>
+<div class="scene" id="s14"></div>
+
+<img id="mark" src="assets/adal1.svg">
+<div id="cap"><span id="capT"></span></div>
+<div id="statcard"><div><b id="clock">00:00</b><i>build time</i></div><div><b id="spend">$0.00</b><i>spend</i></div></div>
+
+<script>
+// Beat table. One take, one session: every frame comes from takes/20260923-004452.
+const DUR = [['s01',4.0],['s02',7.0],['s03',6.0],['s04',5.0],['s05',6.0],['s06',5.5],
+             ['s07',5.0],['s08',6.0],['s09',5.5],['s10',10.0],
+             ['s11',8.0],['s12',8.5],['s13',8.0],['s14',4.0]];
+const T = {}; let acc = 0; for (const [k,d] of DUR){ T[k]=[acc,acc+d]; acc+=d; }
+window.T = T; window.END = acc;
+window.STAGES = [
+  { stage:'Build',  fromSeconds: T.s01[0], toSeconds: T.s07[0] },
+  { stage:'Verify', fromSeconds: T.s07[0], toSeconds: T.s11[0] },
+  { stage:'Demo',   fromSeconds: T.s11[0], toSeconds: window.END }
+];
+
+const ease = x => x<0?0:x>1?1:(1-Math.cos(Math.PI*x))/2;
+const lerp = (a,b,x) => a+(b-a)*x;
+const seg = (t,a,b) => ease((t-a)/(b-a));
+const clamp = (x,a,b) => x<a?a:x>b?b:x;
+const pad = n => String(n).padStart(5,'0');
+
+let SPEND = null, SEGMAP = null;
+const pend = [];
+function setSrc(img, src){ if (img.getAttribute('src') !== src) img.setAttribute('src', src); pend.push(img); }
+
+// put source point (cx,cy) at the stage centre at scale s
+function cam(img, sw, sh, cx, cy, s){
+  const w=sw*s, h=sh*s; img.style.width=w+'px'; img.style.height=h+'px';
+  img.style.left=(960-cx*s)+'px'; img.style.top=(540-cy*s)+'px';
+}
+// put source point (cx,cy) at the centre of a window port at scale s
+function camIn(img, pw, ph, sw, cx, cy, s){
+  img.style.width=(sw*s)+'px';
+  img.style.left=(pw/2-cx*s)+'px'; img.style.top=(ph/2-cy*s)+'px';
+}
+// the rendered terminal window, measured once: bbox x 421..2298, y 74..1507 in a 2720x1530 frame
+const TERM = { w:2720, h:1530, cx:1359.5, cy:790.5, s:0.68 };
+let castNow = 7.0;
+function term(img, name, f0, f1, lt, t0, t1){
+  const f = Math.round(clamp(lerp(f0,f1,(lt-t0)/(t1-t0)), Math.min(f0,f1), Math.max(f0,f1)));
+  setSrc(img, `out/segs4/${name}/frames/${pad(f)}.png`);
+  cam(img, TERM.w, TERM.h, TERM.cx, TERM.cy, TERM.s);
+  castNow = castOfSeg(name, f);
+  return f;
+}
+// a segment frame index back to its real cast second, through the render speed blocks
+function castOfSeg(name, f){
+  const m = SEGMAP[name]; const vt = f/30;
+  for (const [v0,v1,c0,c1] of m.blocks){ if (vt <= v1) return c0 + (c1-c0)*clamp((vt-v0)/(v1-v0),0,1); }
+  return m.B;
+}
+// the X feed capture: frame index to cast second, from browser-safe/index.json
+const BR = [[1205,1400.2],[1250,1413.2],[1300,1427.8],[1340,1439.5],[1344,1440.7],[1346,1441.3]];
+function castOfBrowser(f){
+  for (let i=1;i<BR.length;i++){ if (f<=BR[i][0]){ const a=BR[i-1],b=BR[i]; return a[1]+(b[1]-a[1])*(f-a[0])/(b[0]-a[0]); } }
+  return BR[BR.length-1][1];
+}
+
+// the caption band, lit only where a beat label earns its place
+const CAPS = [
+  ['s02', 1.0, 6.4, 'One paragraph in'],
+  ['s03', 0.7, 5.4, 'Robin Bilgil’s post, read in the terminal'],
+  ['s05', 0.6, 5.4, 'PRD written'],
+  ['s06', 0.6, 4.9, '16 tests pass'],
+  ['s08', 0.6, 5.4, '25 minutes on its own relay bug'],
+  ['s09', 0.6, 4.9, 'Score 84 comes back real'],
+  ['s10', 0.6, 3.4, 'Real posts on X'],
+  ['s13', 3.2, 7.5, 'Reels and 16:9'],
+];
+function caption(id, lt){
+  let on = 0, txt = '';
+  for (const [sid,a,b,s] of CAPS){ if (sid===id){ const v = seg(lt,a,a+0.4)*(1-seg(lt,b-0.4,b)); if (v>on){ on=v; txt=s; } } }
+  const c = document.getElementById('cap');
+  c.style.opacity = on;
+  if (on>0) document.getElementById('capT').textContent = txt;
+}
+
+async function render(t){
+  if (!SPEND) SPEND = await (await fetch('v4/spend-run.json')).json();
+  if (!SEGMAP) SEGMAP = await (await fetch('v4/segmap.json')).json();
+  pend.length = 0;
+  const sc = document.getElementById('statcard'), mk = document.getElementById('mark');
+  mk.style.opacity = 0;
+  for (const [id,[a,b]] of Object.entries(T)){
+    const el = document.getElementById(id);
+    const on = t>=a && t<b;
+    el.style.opacity = on ? 1 : 0;
+    if (!on) continue;
+    const lt = t-a, d = b-a;
+    caption(id, lt);
+
+    // b01 the session, with browser use and video switched on
+    if (id==='s01'){ term(document.getElementById('i01'),'caps',75,185,lt,0,d); }
+
+    // b02 the one paragraph, typed and sent
+    if (id==='s02'){ term(document.getElementById('i02'),'idea',0,205,lt,0,d-0.4); }
+
+    // b03 it reads Robin Bilgil's post from the terminal, not the browser
+    if (id==='s03'){ term(document.getElementById('i03'),'post',30,215,lt,0,d); }
+
+    // b04 the TypeSafe Jev API shape it needs first
+    if (id==='s04'){ term(document.getElementById('i04'),'prd',12,88,lt,0,d); }
+
+    // b05 the PRD it writes from that
+    if (id==='s05'){ term(document.getElementById('i05'),'prd',95,185,lt,0,d); }
+
+    // b06 its own deterministic tests
+    if (id==='s06'){ term(document.getElementById('i06'),'tests',55,150,lt,0,d); }
+
+    // b07 it attaches to the browser already running
+    if (id==='s07'){ term(document.getElementById('i07'),'tests',152,232,lt,0,d); }
+
+    // b08 twenty five minutes finding its own relay contract bug
+    if (id==='s08'){ term(document.getElementById('i08'),'fix',45,225,lt,0,d); }
+
+    // b09 the fix, and the score comes back real
+    if (id==='s09'){ term(document.getElementById('i09'),'fix',228,300,lt,0,d-0.6); }
+
+    // b10 the product on the real X feed, then the badge held large
+    if (id==='s10'){ const im=document.getElementById('i10');
+      let f;
+      if (lt<3.6){ f = Math.round(lerp(1205,1300,lt/3.6)); }
+      else { f = Math.round(lerp(1344,1346,clamp((lt-3.6)/1.6,0,1))); }
+      setSrc(im, `v4/takes/20260923-004452/browser-safe/${pad(f)}.jpg`);
+      const p = seg(lt,3.6,6.2);
+      camIn(im, 1540, 860, 2976, lerp(1831,1420,p), lerp(740,500,p), lerp(0.67,1.05,p));
+      castNow = castOfBrowser(f); }
+
+    // b11 the pull request it opens
+    if (id==='s11'){ const im=document.getElementById('i11'), pw=document.getElementById('prwin');
+      const cut = lt>=3.0;
+      im.style.opacity = 1-seg(lt,2.85,3.05); pw.style.opacity = seg(lt,2.85,3.05);
+      if (!cut){ term(im,'pr',8,95,lt,0,3.0); }
+      else { const H = 1540*3720/2880; const p = lerp(0.0,0.30,seg(lt,3.6,7.6));
+        document.getElementById('prImg').style.top = (-p*H)+'px';
+        castNow = lerp(1541,1600,clamp((lt-3.0)/5.0,0,1)); } }
+
+    // b12 the landing page it designed, live on Vercel
+    if (id==='s12'){ const im=document.getElementById('i12'), lw=document.getElementById('lgwin');
+      const cut = lt>=3.0;
+      im.style.opacity = 1-seg(lt,2.85,3.05); lw.style.opacity = seg(lt,2.85,3.05);
+      if (!cut){ term(im,'land',150,235,lt,0,3.0); }
+      else { const H = 1540*5524/2928; const p = lerp(0.0,0.19,seg(lt,3.7,8.1));
+        document.getElementById('lgImg').style.top = (-p*H)+'px';
+        castNow = lerp(1880,1915,clamp((lt-3.0)/5.5,0,1)); } }
+
+    // b13 the two launch cuts it generated, side by side
+    if (id==='s13'){ const im=document.getElementById('i13'), a16=document.getElementById('w16'), a9=document.getElementById('w9');
+      const cut = lt>=2.5;
+      im.style.opacity = 1-seg(lt,2.35,2.55); a16.style.opacity = seg(lt,2.35,2.7); a9.style.opacity = seg(lt,2.55,2.9);
+      if (!cut){ term(im,'clips',22,92,lt,0,2.5); }
+      else { castNow = lerp(2131,2360,clamp((lt-2.5)/5.5,0,1)); }
+      const f = clamp(Math.round(1+(lt-2.4)*30),1,180);
+      setSrc(document.getElementById('c16'), `v4/frames/launch16/${pad(f)}.jpg`);
+      setSrc(document.getElementById('c9'), `v4/frames/launch9/${pad(f)}.jpg`); }
+
+    // b14 close
+    if (id==='s14'){ castNow = 2356.0; mk.style.opacity = seg(lt,0.4,1.3)*(1-seg(lt,d-0.5,d)); }
+  }
+  readout(castNow);
+  sc.style.opacity = 1;
+  await Promise.all(pend.map(im => im.complete && im.naturalWidth ? null : new Promise(r => { im.onload = im.onerror = r; })));
+}
+
+// the readout is the recorded session: elapsed since the prompt was submitted at cast 37.0,
+// and the spend curve from spend-run.json, one cumulative point per minute of the run.
+function readout(cast){
+  const el = clamp(cast - 37.0, 0, 2319);
+  const m = el/60;
+  let usd;
+  if (m >= SPEND[SPEND.length-1][0]) usd = SPEND[SPEND.length-1][1];
+  else { const i = Math.floor(m); const a = SPEND[i], b = SPEND[i+1]; usd = a[1] + (b[1]-a[1])*(m-i); }
+  if (el >= 2319) usd = 0.4438;
+  document.getElementById('clock').textContent =
+    String(Math.floor(el/60)).padStart(2,'0')+':'+String(Math.floor(el%60)).padStart(2,'0');
+  document.getElementById('spend').textContent = '$'+usd.toFixed(2);
+}
+window.render = render;
+</script>
+<script src="v3/graphics/stages.js"></script>
+</body></html>

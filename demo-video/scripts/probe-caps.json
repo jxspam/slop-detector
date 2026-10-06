@@ -1,0 +1,4 @@
+{ "cwd": "/Users/jaxkoh/adal/videos/jev-slop-detector/workspace", "cols": 100, "rows": 30, "command": ["adal", "--yolo"], "env": { "ADAL_DEV_MODE": null },
+  "steps": [ { "idle": 5000, "timeout": 90000 }, { "type": "/capabilities", "cps": 20 }, { "sleep": 1500 }, { "snapshot": "typed" },
+    { "press": "enter", "before": 300 }, { "sleep": 2500 }, { "snapshot": "menu" },
+    { "press": "esc" }, { "sleep": 800 }, { "press": "ctrl c" }, { "sleep": 700 }, { "press": "ctrl c" }, { "sleep": 1000 } ] }
